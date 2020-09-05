@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <title>Hito1 ICC2026</title>
+</head>
+<body>
+    <div class="Container">
+        <div class = "Encabezado">
+            <div class = "Titulo">Hito 1 IIC2026 🎒 </div>
+            <div class = "Nombres">
+                <p>Santiago J. Larraín 🃏 </p>
+                <p>Fernando Florenzano</p>
+            </div>
+        </div>
+        <div class = "Introduccion">
+            <div class = "Subtitulo">Introducción y Contextualización</div>
+            <div class = "Texto">
+                <p>La razón del estudio, es decir, el “por qué” realizarlo es para contestar varias
+                    preguntas que tiene la autora sobre el tema de los homicidios que se presentan en las distintas partes de EE.UU.
+                </p>
+                <ul>Entre las distintas hipótesis que se intentan contestar encontramos las siguientes:
+                    <li>¿Es efectivo que la policía tiene un sesgo racial?</li>
+                    <li>¿Qué factores son determinantes en la cantidad de muertes 
+                        y cuáles son las principales características de los estados, 
+                        condados o tractos donde ocurren estos homicidios?</li>
+                </ul>
+                <p>Para poder contestar cada una de estas preguntas tendremos distintas acciones con
+                     objetivos claros con tal de poder obtener una respuesta.
+                </p>
+            </div>
+        </div>
+        <div class = "Respuestas">
+            <div class = "Subtitulo"> Acciones y Objetivos</div>
+            <div class = "answer">
+                <div class = "Pregunta_1">
+                    <p>Con respecto a la primera pregunta, las acciones a considerar son:</p>
+                    <ul>
+                        <li>Analizar raza del muerto y si tenía un arma. El objetivo de esto es considerar 
+                            que en caso de que si el policía que efectuó el homicidio podría haber estado
+                            efectuando defensa propia viendo una tendencia de homicidio por porte de armas.
+                        </li>
+                        <li>Descubrir el porcentaje de muertes respecto a la cantidad de personas de esa raza
+                            en la ubicación. Para obtener esto necesitaremos derivar ciertos datos para producir 
+                            información relevante que nos genere un posible descubrimiento con objetivo de analizar
+                            las correlaciones. Ejemplo de esto sería ponderar las muertes por la cantidad de personas
+                            de esa raza. Si en Oregón hay muchos blancos, se esperaría que los homicidios fueran
+                            de esa raza. 
+                        </li>
+                        <li>Buscar cuales son los estados donde se podría ver una cierta tendencia a la discriminación.
+                            Esta búsqueda la podríamos definir de tipo localización, ya que buscamos estados donde la cantidad
+                            de homicidios sea alta de una raza especifica cuando esta raza no es mayoría. 
+                        </li>
+                        <li>Comparar como es esta realidad con respecto a otras ubicaciones donde hay una similitud
+                            respecto a la ubicación. Ejemplo: Como se comportan dos estados.
+                        </li>
+                    </ul>
+                </div>
+                <div class = "Pregunta_2">
+                    <p>De acuerdo con la segunda pregunta, las acciones son:</p>
+                    <ul>
+                        <li>Analizar dentro de los estados, condados o tractos donde hay una gran cantidad de homicidios,
+                            que factores inciden. Para esto ocuparemos los datos de pobreza, ingreso, desempleo y educación
+                            para dar respuesta a esto. Objetivo es la correlación entre estos distintos índices y los homicidios.
+                        </li>
+                        <li>Buscar cuales son las principales características que llevan a esto. La búsqueda en este caso sería
+                            de tipo “explorar” ya que o sabemos ni donde ni que buscar.
+                        </li>
+                        <li>Analizar las distintas tendencias. Por ejemplo, si todos los tractos donde hay una alta tasa de desempleo
+                            hay más asesinatos. O si donde hay una gran población afroamericana las tasas de desempleo son más altos.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class = "Dataset">
+            <div class = "Subtitulo">Dataset</div>
+            <p>Respecto al dataset podemos tomar las siguientes aclaraciones:</p>
+            <ul>
+                <li>El dataset se trata de todos los homicidios que se produjeron en EE.UU durante el año 2015. Además entrega
+                    información muy útil que nos permite poder sacar más conclusiones sobre el homicidio. La ubicación de donde
+                    se produce el evento y la situación de todo el entorno puede proveer información muy importante para entender
+                    la causa de este. Es un dataset que tiene mucha información para poder tomar decisiones e ideas sobre
+                    distintos comportamientos que la gente podría tratar.
+                </li>
+                <li>El dataset es estático, ya que se refiere solo a los homicidios en el año 2015. Por lo tanto, este no debería
+                 variar suponiendo que todos los homicidios ya fueron considerados.
+                </li>
+                <li>Este dataset es de forma tabular, por lo que tiene atributos e ítems. Sin embargo, tenemos dos atributos que
+                    sirven de posición como lo son los datos de longitud y latitud presentes en el dataset.
+                </li>
+                <li>Si hay datos llaves que son el numero indicador del condado donde se produjo el homicidio. Sin embargo, se podrían
+                     agregar más atributos llaves como el id del homicida como el fallecido.  
+                </li>
+            </ul>
+            <div class = "Tabla">
+                <p>A continuación presentamos la tabla con la descripcion de variables</p>
+                <table class="table">
+                <thead><tr class="table-fila"><th> </th><th>¿categórico u ordenado?</th><th> ¿Ordinal o Cuantitativo? </th><th>¿Secuencial o divergente? </th><th>¿cíclico o no cíclico? </th><th>¿Llave o valor? </th><th>Tipo</th></tr></thead><tbody>
+                 <tr><td>name</td><td>categorico</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>Atributo</td></tr>
+                 <tr><td>age</td><td>ordenado</td><td>Ordinal</td><td>Secuencial</td><td>No cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>gender</td><td>categorico</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>Atributo</td></tr>
+                 <tr><td>raceethnicity</td><td>categorico</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>Atributo</td></tr>
+                 <tr><td>date</td><td>ordenado</td><td>Ordinal</td><td>Secuencial</td><td>Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>city</td><td>categorico</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>Atributo</td></tr>
+                 <tr><td>state</td><td>categorico</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>Atributo</td></tr>
+                 <tr><td>latitude</td><td>ordenado</td><td>Cuantitativo</td><td>Divergente</td><td>No cíclico</td><td>Valor</td><td>Posición</td></tr>
+                 <tr><td>longitude</td><td>ordenado</td><td>Cuantitativo</td><td>Divergente</td><td>No cíclico</td><td>Valor</td><td>Posición</td></tr>
+                 <tr><td>county_fp</td><td>ordenado</td><td>Ordinal</td><td>Secuencial</td><td>No cíclico</td><td>Llave</td><td>Atributo</td></tr>
+                 <tr><td>cause</td><td>categorico</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>Atributo</td></tr>
+                 <tr><td>armed</td><td>categorico</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>No aplica</td><td>Atributo</td></tr>
+                 <tr><td>share_white</td><td>ordenado</td><td>Cuantitativo</td><td>Secuencial</td><td>No Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>share_black</td><td>ordenado</td><td>Cuantitativo</td><td>Secuencial</td><td>No Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>share_hispanic</td><td>ordenado</td><td>Cuantitativo</td><td>Secuencial</td><td>No Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>p_income</td><td>ordenado</td><td>Cuantitativo</td><td>Secuencial</td><td>No Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>county_income</td><td>ordenado</td><td>Cuantitativo</td><td>Secuencial</td><td>No Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>nat_bucket</td><td>ordenado</td><td>Ordinal</td><td>Secuencial</td><td>No Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>pov</td><td>ordenado</td><td>Cuantitativo</td><td>Secuencial</td><td>No Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>urate</td><td>ordenado</td><td>Cuantitativo</td><td>Secuencial</td><td>No Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                 <tr><td>college</td><td>ordenado</td><td>Cuantitativo</td><td>Secuencial</td><td>No Cíclico</td><td>Valor</td><td>Atributo</td></tr>
+                </tbody></table>
+            </div>
+
+        </div>
+    </div>
+    
+</body>
+</html>
