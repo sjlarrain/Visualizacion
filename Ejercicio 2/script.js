@@ -38,7 +38,9 @@ svg
   .attr("height", (d, i) => d.tests / 200)
   .attr("fill", (d, i) => colors[i])
   
-svg
+svg.selectAll("text")
+.data(data)
+.enter()
 .append("text")
 .attr("y", (d, i) => 195)
 .attr("x", (d, i) => i * 50)
