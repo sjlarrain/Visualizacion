@@ -40,6 +40,9 @@
     
     margin-bottom: 45px;
 }
+tr > :nth-child(1) {
+    font-weight: bold;
+}
 tr >:nth-child(2) {
     text-align: center;
 }
