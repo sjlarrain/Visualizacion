@@ -14,7 +14,7 @@ const dimensiones = {
 
 const interpretador = (d)=> {
        return { sepalLength: parseFloat(d.sepalLength),
-        sepalWidth: parseFloat(d.seplaWidth),
+        sepalWidth: parseFloat(d.sepalWidth),
         petalLength: parseFloat(d.petalLength),
         petalWidth: parseFloat(d.petalWidth),
         species: d.species}
@@ -26,17 +26,17 @@ const interpretador = (d)=> {
         let q = 0
         for (let i = 0 ; i< datos.length;i++){
             if (datos[i].species == especie){
-                if (tipo == "sepalLenght"){
+                if (tipo =="sepalLenght"){
                     cuenta += datos[i].sepalLength;
                 }
-                else if (tipo == "petalLenght"){
-                    cuenta += datos[i].petalLength
+                else if (tipo == "petalLength"){
+                    cuenta += datos[i].petalLength;
                 }
                 else if (tipo == "petalWidth"){
-                    cuenta += datos[i].petalWidth
+                    cuenta += datos[i].petalWidth;
                 }
-                else {
-                    cuenta += datos[i].sepalWidth
+                else{
+                    cuenta += datos[i].sepalWidth;
                 }
                 q++;
             }
@@ -48,7 +48,7 @@ const datos = d3.json("iris.json", interpretador)
                 .then((datos) => {
                     let lista = new Object()
                     let especies = ["setosa", "virginica", "versicolor"]
-                    let medidas = ["sepalLenght","petalLenght","petalWidth","sepalWidth"]
+                    let medidas = ["sepalLenght","petalLength","petalWidth","sepalWidth"]
                     for (let i = 0; i < especies.length;i++){
                         kind = especies[i];
                         promedios = new Object();
@@ -69,11 +69,11 @@ const svg = d3.select(".container")
                     .attr("width", dimensiones.WIDTH)
                     .attr("height", dimensiones.HEIGHT)
 
-const setosa = container.append("g")
+const setosa = svg.append("g")
                     .attr("transform",`translate(${margin.left}, ${margin.top})`)
 
-const versicolor = container.append("g")
+const versicolor = svg.append("g")
                         .attr("transform",`translate(${margin.left}, ${margin.top})`)
 
-const virginica = container.append("g")
+const virginica = svg.append("g")
                         .attr("transform",`translate(${margin.left}, ${margin.top})`)
