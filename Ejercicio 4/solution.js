@@ -6,36 +6,36 @@
 
 // 1. Definiremos las constantes de alto, ancho y márgenes de nuestro SVG.
 
-const WIDTH = 600, // Completar
-      HEIGHT = 600; // Completar
+const WIDTH = 1200,
+      HEIGHT = 600;
 
-const margin = {left: 20,
-                right: 40,
-                top: 75,
-                bottom: 20
+const margin = {
+    top: 70,
+    bottom: 70,
+    left: 100,
+    right: 100
 };
 
-const width = WIDTH - margin.left - margin.right; // Completar
-      height = HEIGHT - margin.top - margin.bottom; // Completar
+const width = WIDTH - margin.left - margin.right,
+      height = HEIGHT - margin.top - margin.bottom;
 
 // 2. Crear un SVG dentro del div container, ubicado en el HTML. 
 //   (Nota: el div tiene id = #container)
 //   Mediante atributos, le damos el ancho y alto pedido.
 
-const svg = d3.select("#container")
-            .append("svg")
-            .attr("width", WIDTH)
-            .attr("height", HEIGHT); // Completar
+const svg = d3.select('#container')
+              .append('svg')
+              .attr("width", WIDTH)
+              .attr("height", HEIGHT)
 
 // 3. Crear contenedor donde se agrupan los elementos de la visualización
 
-const container = svg.append("g")
-                    .attr("width", width)
-                    .attr("height", height)
-
+const container = svg.append('g')
+                        .attr("transform", `translate(${margin.left}, 
+                                                      ${margin.top})`);
 // 4. Le añadiremos al SVG contenedores para ambos ejes.
 //    De momento, solo se appendea el 'g' al SVG 
-//    y le aplicaremos una transformación según el margen especificado arriba.
+//    y los transformaremos según el margen especificado arriba.
 //    También es clave darles una clase o id.
 //    Esto se hace aquí ya que al ser el gráfico interactivo
 //    Necesitaremos tener una referencia a sus clases/id para ir cambiando
@@ -43,13 +43,12 @@ const container = svg.append("g")
 
 svg.append("g")
     .attr("class", "xAxis")
-    .attr("id", "xLabel")
-    // completar con los atributos pedidos para el eje X
-
+    .attr("transform", `translate(${margin.left}, 
+            ${HEIGHT - margin.bottom})`);
 svg.append("g")
     .attr("class", "yAxis")
-    .attr("id", "yLabel")
-    // completar con los atributos pedidos para el eje Y
+    .attr("transform", `translate(${margin.left},
+                ${margin.top})`);
 
 // 4. Le añadiremos al SVG elementos del tipo 'text', para los títulos y labels de ejes.
 //    Nuevamente, solo le damos una clase y/o id y le aplicamos el transform para moverlo,
@@ -60,43 +59,47 @@ svg.append("g")
 //    a escribir allí los estilos. En este caso, text-anchor se incluiría en el css externo. 
 //    Tip para el CSS: aprovecha el uso de clases para agrupar las reglas.
 
-svg.append("text").text("Avocado")   // título
-    // completar con los atributos pedidos
+svg.append("text")     
+    .attr("class", "title")
+    .attr("transform",
+        "translate(" + ((width/2) + margin.left) + " ," + 
+        (margin.top/2) + ")");
 
-svg.append("text").text("Fechas")  // eje X
-    // completar con los atributos pedidos
+svg.append("text")  
+    .attr("class", "label")
+    .attr("id", "xLabel")
+    .attr("transform",
+        "translate(" + ((width/2) + margin.left) + " ," + 
+                        (HEIGHT - margin.bottom/4) + ")");
 
-svg.append("text").text("Precio") // eje Y
-    // completar con los atributos pedidos
+const yLabel = svg.append("text")
+                  .attr("class", "label")
+                  .attr("id", "yLabel")
+                  .attr("transform", "rotate(-90)")
+                  .attr("y", margin.left/2)
+                  .attr("x",0 - (HEIGHT / 2))
+                  .attr("dy", "1em");
 
 // 5. Se agregan mediante D3 dos botones en el div dedicado específicamente a eso.
 //    (Nota: el div tiene de id 'buttonContainer')
 
-const convencionales = d3.select("#buttonContainer")
-                        .append("button")
-                        .text("Paltas Convecionales")
-                        .attr("width", 50)
-                        .attr("height", 20) // completar agregando botón para paltas convencionales.
-const organicas = d3.select("#buttonContainer")
-                    .append("button")
-                    .text("Paltas Orgánicas")
-                    .attr("width", 50)
-                    .attr("height", 20) // completar agregando botón para paltas orgánicas.
+const convencionales = d3.select("#buttonContainer").append("button").text("Conventional Avocados");
+const organicas = d3.select("#buttonContainer").append("button").text("Organic Avocados");
 
 // 6. Como en los ejercicios del módulo anterior, nuevamente generamos un parser 
 //    para filtrar la información relevante del ejercicio,
 //    y castear los tipos correctos a ciertas variables.
 
 // Para parsear las fechas
-const parseDate = d3.timeParse("%Y-%m-%d"); // Completar
+const parseDate = d3.timeParse("%Y-%m-%d");
 
 // Filtramos los datos
-const parser = (data) => { // Rellenar acordemente 
+const parser = (data) => {
     return {
         date: parseDate(data.Date), // Fecha
-        avgPrice: parseFloat(data.AveragePrice, 10), // Precio promedio de una palta (ojo que los datos son Float)
-        totalVolume: parseInt(data.totalVolume, 10), // Volumen total vendido
-        totalBags: parseInt(data.totalBags), // Bolsas vendidas
+        avgPrice: parseFloat(data.AveragePrice, 10), // Precio promedio de una palta
+        totalVolume: parseInt(data.TotalVolume, 10), // Volumen total vendido
+        totalBags: parseInt(data.TotalBags, 10), // Bolsas vendidas
         type: data.type, // Convencional u orgánica
     }
 }
@@ -107,37 +110,38 @@ const parser = (data) => { // Rellenar acordemente
 //    "conventional" o "organic".
 
 const filterDataset = (data, type) => {
-    data.filter(dato => dato.type == type)
-     // filtrar los items que tengan tipo igual al pedido y retornarlo. (hint: js tiene un filter bien bueno).
+    data = data.filter(item => item.type === type) // filtrar los items que tengan tipo igual al pedido y retornarlo.
     return data
 }
+
 
 // 8. Esta función engloba la creación/actualización del gráfico.
 
 const avocadoCount = (data, type) => {
+
     // Ordenamos los datos en forma creciente para el gráfico y sacamos el máximo para hacer las escalas.
     // (tip: recordar que d3 tiene d3.min, d3.max, d3.mean, etc.,)
 
-    const maxValue = d3.max(data, (d) => d.avgPrice); // Rellenar
+    const maxValue = d3.max(data, (d) => d.avgPrice);
 
     // (tip: recordar que a los arrays de JS se les puede aplicar .sort )
 
-    data =  data.sort((a, b) => a.date -b.date);// Aquí debes rellenar con una forma de ordenar los datos de más antiguos a mas nuevos. 👀
+    data.sort((a, b) => a.date - b.date);
 
     // Escala del eje X. Debe tener, tipo de escala (scaleBand, scaleLinear, etc),
     // dominio y rango como mínimo.
 
     const xScale = d3.scaleBand()
-                        .domain(data.map((d)=> d.date)) // completar
-                        .range([width, 0]) // completar
-                        .padding(10); // completar
+                        .domain(data.map((d) => d.date))
+                        .range([0, width])
+                        .padding(0.3);
 
     // Escala del eje Y. Debe tener, tipo de escala (scaleBand, scaleLinear, etc),
     // dominio y rango como mínimo.
 
     const yScale = d3.scaleLinear()
-                        .domain([0, maxValue]) // completar
-                        .range([height, 0]); // completar;
+                        .domain([0, maxValue])
+                        .range([height, 0]);
 
     // Las siguientes lineas generan la 'línea' del line chart. Como es materia no vista, 
     // De momento, se explica brevemente como funciona. 
@@ -145,16 +149,16 @@ const avocadoCount = (data, type) => {
     // https://observablehq.com/@d3/d3-line
 
     const line = d3.line() // inicialización
-    .x((d)=>xScale(d.date)) // Completar
-    .y((d)=>yScale(d.avgPrice)) // Completar
-    .curve(d3.curveMonotoneX); // Opcional. Suaviza la línea. Prueba comentándolo para ver cómo se ve sin esto.
+    .x((d) => xScale(d.date)) // Con esto le damos las coordenadas 'x' que tendrán los puntos por donde pasará la línea
+    .y((d) => yScale(d.avgPrice)) // Con esto le damos las coordenadas 'y' que tendrán los puntos por donde pasará la línea 
+    .curve(d3.curveMonotoneX) // Opcional. Suaviza la línea. Prueba comentándolo para ver cómo se ve sin esto.
 
     // Se crean los ejes X e Y. Se les debe dar como parámetro la escala X e Y hecha previamente.
     // Únicamente por motivos visuales, se le puede dar un formato a los ticks del eje X 
     // (hint: .tickFormat(), investigue como darle un formato de tiempo)
 
-    const xAxis = d3.axisBottom(xScale);// completar
-    const yAxis = d3.axisLeft(yScale); // completar
+    const xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%y-%m"))
+    const yAxis = d3.axisLeft(yScale);
 
     // Necesitamos recuperar los 'g' hechos para el eje X más arriba. Esto
     // debería hacerse mediante un 'selectAll' de la clase o ID dada arriba.
@@ -169,7 +173,7 @@ const avocadoCount = (data, type) => {
         .duration(1000)
         .call(xAxis)
         .selectAll("text")
-        .attr("transform", "rotate(45)") // completar
+        .attr("transform", `rotate(45)`)
 
     // Necesitamos recuperar los 'g' hechos para el eje Y más arriba. Esto
     // debería hacerse mediante un 'selectAll' de la clase o ID dada arriba.
@@ -187,20 +191,21 @@ const avocadoCount = (data, type) => {
         .call(yAxis)
         .selectAll("line")
         .attr("x1", width)
-        .style("opacity", 0.2) // completar
+        .attr("opacity", 0.2);
     
     // Necesitamos recuperar los 'text' hechos para el título y las label de los ejes
-    // más arriba. Hacemos 'selectAll' por cada clase o ID se les asigno arriba,
+    // más arriba. Hacemos 'selectAll' por cada clase o ID que se les asigno arriba,
     // y simplemente, mediante el método .text(), se les rellena con el texto adecuado.
 
     svg.selectAll(".title")
-        .text("Precio de los avocados a través del tiempo") // completar
+        .text(`Date vs. Avg. Price of avocado 🥑 (${type})`);
     
-    svg.selectAll("#xLabel")
-        .text('Fecha')  // completar
+    svg.selectAll("#xLabel")            
+        .text("Date (Year-Month)");
 
-    svg.selectAll("#yLabel") // completar
-        .text("Precio")
+    svg.selectAll("#yLabel")
+        .text("Avg. price per avocado (USD)"); 
+
     
     // Ahora seleccionamos el 'trazo' o 'linea' del gráfico que habiamos creado antes con .line().
     // El binding de los datos se debe hacer así: .data([data]).
@@ -229,7 +234,7 @@ const avocadoCount = (data, type) => {
     );
 
     // Haremos nuestro segundo data join personalizado, para incluir los 'nodos' del line chart.
-    // Esta vez seleccionamos todos los objetos con la clase ".dot" (o cualquier otro nombre de clase que quieras darle)
+    // Esta vez seleccionamos todos los objetos con la clase ".dot" (o cualquier otro nombre que quieras darle)
     // e iniciamos el join.
     // Por como vienen definidos los datos, sabemos que siempre hay uno por mes para los 3 años de los datos (2015,2016,2017)
     // Por lo que no necesitamos a exit ya que nunca 'sobrarán' nodos.
@@ -244,7 +249,7 @@ const avocadoCount = (data, type) => {
 
     //Finalizando el join, deberás hacer chaining para incluir el comportamiento que tendrán los nodos
     // cuando se les pase el mouse por encima. Esto se hace con .on("evento", (event, d) => {}), donde lo primero es
-    // el tipo de evento y lo segundo la función que se ejecutará cuando se active. Ver las cápsulas de la semana
+    // el tipo de evento y lo segundo la función que se ejecutará cuando se active. Ver las capsulas de la semana
     // para mas detalles.
 
     container.selectAll(".dot")
@@ -297,25 +302,24 @@ const avocadoCount = (data, type) => {
 //    Para esta parte, recomiendo ver las cápsulas del profesor de este módulo o el código de ejemplo dado si no
 //    Estás segurx de cómo proceder.
 
-// completar el cargado y llamado a funciones completo. Si necesitas ayuda revisa los ejercicios propuestos del módulo anterior.
-d3.csv("./data/avocado.csv", parser)
+d3.csv("./../data/avocado.csv", parser)
     .then((data) => {
-    // primero una carga normal, para inicializar el gráfico
-    avocadoData = filterDataset(data, 'conventional');
-    avocadoCount(avocadoData, 'conventional');
-    // definimos qué funciones se llaman cuando aprieto cada botón
-    convencionales.on("click", () => {
-    avocadoData = filterDataset(data, 'conventional');
-    avocadoCount(avocadoData, 'conventional');
-    });
-    // definimos qué funciones se llaman cuando aprieto cada botón
-    organicas.on("click", () => {
-        avocadoData = filterDataset(data, 'organic');
-        avocadoCount(avocadoData, 'organic');
+        // primero una carga normal, para inicializar el gráfico
+        avocadoData = filterDataset(data, 'conventional');
+        avocadoCount(avocadoData, 'conventional');
+        // definimos qué funciones se llaman cuando aprieto cada botón
+        convencionales.on("click", () => {
+        avocadoData = filterDataset(data, 'conventional');
+        avocadoCount(avocadoData, 'conventional');
         });
-}) // atrapa errores
-.catch((err) => console.log(err));
-
+        // definimos qué funciones se llaman cuando aprieto cada botón
+        organicas.on("click", () => {
+            avocadoData = filterDataset(data, 'organic');
+            avocadoCount(avocadoData, 'organic');
+            });
+    }) // atrapa errores
+    .catch((err) => console.log(err));
+    
 // Has llegado al final, ¡Felicitaciones! Deberías tener un lindo gráfico de paltas.
 
 // Algunas implementaciones propuestas que podrías hacer si quedaste con ganas:
