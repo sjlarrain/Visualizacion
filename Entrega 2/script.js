@@ -14,7 +14,7 @@ const dimensiones = {
 
 const interpretador = (d)=> {
        return { sepalLength: parseFloat(d.sepalLength),
-        seplaWidth: parseFloat(d.seplaWidth),
+        sepalWidth: parseFloat(d.seplaWidth),
         petalLength: parseFloat(d.petalLength),
         petalWidth: parseFloat(d.petalWidth),
         species: d.species}
@@ -26,7 +26,18 @@ const interpretador = (d)=> {
         let q = 0
         for (let i = 0 ; i< datos.length;i++){
             if (datos[i].species == especie){
-                cuenta += datos[i].sepalLength;
+                if (tipo == "sepalLenght"){
+                    cuenta += datos[i].sepalLength;
+                }
+                else if (tipo == "petalLenght"){
+                    cuenta += datos[i].petalLength
+                }
+                else if (tipo == "petalWidth"){
+                    cuenta += datos[i].petalWidth
+                }
+                else {
+                    cuenta += datos[i].sepalWidth
+                }
                 q++;
             }
         }
@@ -37,12 +48,12 @@ const datos = d3.json("iris.json", interpretador)
                 .then((datos) => {
                     let lista = new Object()
                     let especies = ["setosa", "virginica", "versicolor"]
-                    let medidas = ["sepalLenght","sepalLenght","sepalLenght","sepalLenght"]
+                    let medidas = ["sepalLenght","petalLenght","petalWidth","sepalWidth"]
                     for (let i = 0; i < especies.length;i++){
-                        kind = especies[i]
-                        promedios = new Object()
+                        kind = especies[i];
+                        promedios = new Object();
                         for (let j = 0; j < medidas.length; j++){
-                            promedios[medidas[i]] = average(datos, medidas[j], kind);
+                            promedios[medidas[j]] = average(datos, medidas[j], kind);
                         }
                         lista[kind] = promedios;
                     }
