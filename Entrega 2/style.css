@@ -1,0 +1,33 @@
+body {
+    text-align: center;
+    font-family: "Comic Sans MS";
+    padding:20px;
+}
+
+p {
+    text-align: justify;
+}
+.title{
+    font-size: 2cm;
+    padding:20px;
+}
+.names {
+    text-align: right;
+}
+.subtitulo{
+    text-align: left;
+    font-size: 1.2cm;
+}
+
+.seccion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.der, .izq {
+    padding:20px;
+}
+.subsubtitulo{
+    font-size: 1cm;
+    padding:20px
+}

@@ -41,14 +41,14 @@ const construccion = (info) => {
                     .attr("class", "setosa")
                     .attr("width",200)
                     .attr("height", 200)
-                    .attr("transfomr", `translate (${margin.left} ${margin.top} )`)                  
+                    // .attr("transfomr", `translate (${margin.left} ${margin.top} )`)                  
     
     setosa.selectAll(".setosa")
         .data(ubicaciones)
         .join("ellipse")
         .attr("rx", info.setosa.sepalLength * 10)
         .attr("ry", info.setosa.sepalWidth * 10)
-        .attr("transform", (d)=> `translate (${100 + d.x} ${50 + d.y}) rotate(${d.rot})`)
+        .attr("transform", (d)=> `translate (${100 + d.x} ${100 + d.y}) rotate(${d.rot})`)
         .attr("fill", "purple")
 
     setosa.selectAll(".setosa")
@@ -56,8 +56,17 @@ const construccion = (info) => {
         .join("ellipse")
         .attr("rx", info.setosa.petalLength * 10)
         .attr("ry", info.setosa.petalWidth * 10)
-        .attr("transform", (d)=> `translate (${100 + d.x} ${50 +d.y}) rotate(${d.rot})`)
+        .attr("transform", (d)=> `translate (${100 + d.x} ${100 +d.y}) rotate(${d.rot})`)
         .attr("fill", "red")
+
+    svg.selectAll(".setosa")
+            .append("text")
+            .attr("x", 40)
+            .attr("y", 280)
+            .style("font-family", "Comic Sans MS")
+            .style("font-size", "1cm")
+            .text("Setosa")
+            
     
     const virginica = svg.append("g")
         .attr("class", "virginica")
@@ -79,14 +88,14 @@ const construccion = (info) => {
         .attr("ry", info.virginica.petalWidth * 10)
         .attr("transform", (d)=> `translate (${300 + d.x * 4} ${ d.y * 4}) rotate(${d.rot})`)
         .attr("fill", "lightyellow")
-    
-        setosa.selectAll(".setosa")
-        .data(ubicaciones)
-        .join("ellipse")
-        .attr("rx", info.setosa.petalLength * 10)
-        .attr("ry", info.setosa.petalWidth * 10)
-        .attr("transform", (d)=> `translate (${100 + d.x} ${50 +d.y}) rotate(${d.rot})`)
-        .attr("fill", "red")
+
+    svg.selectAll(".virginica")
+        .append("text")
+        .attr("x", 220)
+        .attr("y", 280)
+        .style("font-family", "Comic Sans MS")
+        .style("font-size", "1cm")
+        .text("Virginica")
     
     const versicolor = svg.append("g")
         .attr("class", "versicolor")
@@ -109,6 +118,51 @@ const construccion = (info) => {
         .attr("transform", (d)=> `translate (${500 + d.x * 3.5} ${ d.y * 3.5}) rotate(${d.rot})`)
         .attr("fill", "lightgrey")
 
+    svg.selectAll(".versicolor")
+        .append("text")
+        .attr("x", 420)
+        .attr("y", 280)
+        .style("font-family", "Comic Sans MS")
+        .style("font-size", "1cm")
+        .text("Versicolor")
+
+}
+
+//Tabla
+
+const construccion_tabla = (info) => {
+    const setosa = info.setosa
+    const virginica = info.virginica
+    const versicolor = info.versicolor
+    const lista = [setosa, virginica, versicolor]
+
+    const table = d3.select(".tabla")
+                    .append("table")
+                    .style("border-collapse", "collapse")
+                    .style("border", "2px black solid")
+
+    table.append("thead")
+        .append("tr")
+        .selectAll("th")
+        .data(["Nombre", "Petalo Largo", "Petalo Ancho", "Sepalo Largo", "Sepalo Ancho"])
+        .join("th")
+        .text((d) => d)
+        .style("border", "1px black solid")
+        .style("padding", "5px")
+        .style("background-color", "lightgray")
+        .style("font-weight", "bold")
+        .style("text-transform", "uppercase");
+
+    
+     console.log(lista)
+    table.append("tbody")
+        .selectAll("tr")
+        .data(lista)
+        .join("tr")
+        .selectAll("td")
+        .data(lista)
+        .join("td")
+        .text(d=>[d.species, d.petalLength, d.petalWidth, d.sepalLength, d.sepalWidth])
 }
 
 
@@ -156,11 +210,13 @@ const data = d3.json("iris.json", interpretador)
                         promedios = new Object();
                         for (let j = 0; j < medidas.length; j++){
                             promedios[medidas[j]] = average(datos, medidas[j], kind);
+                        promedios["species"] = kind
                         }
                         lista[kind] = promedios;
                     }
                     console.log(lista)
                     construccion(lista);
+                    // construccion_tabla(lista)
                 })
                 .catch ((err) => console.log(err));
 
