@@ -128,42 +128,94 @@ const construccion = (info) => {
 
 }
 
+
+
 //Tabla
 
-const construccion_tabla = (info) => {
+const construccion_tabla_svg = (info) => {
     const setosa = info.setosa
     const virginica = info.virginica
     const versicolor = info.versicolor
     const lista = [setosa, virginica, versicolor]
+    const colores_petal = ["red", "lightyellow", "lightgrey"]
+    const colores_sepal = ["pruple", "lightblue", "lightgreen"]
 
+    console.log(lista)
     const table = d3.select(".tabla")
-                    .append("table")
-                    .style("border-collapse", "collapse")
-                    .style("border", "2px black solid")
+                    .append("svg")
+                    .attr("width", 600)
+                    .attr("heigth", 200)
+    
+    const up = table.append("g")
+                    .attr("class", "up")
+    const down = table.append("g")
+                    .attr("class", "down")
+    
+    up.selectAll(".up")
+        .data(lista)
+        .join("circle")
+        .attr("cx", (_,i)=> 50 + i * 165)
+        .attr("cy", 100)
+        .attr("r", 10)
+        .attr("fill", (_, i) => colores_petal[i])
+        
+    up.selectAll(".up")
+        .data(lista)
+        .join("text")
+        .text((d)=>Number(d.petalLength.toFixed(2)).toString() + " cm x " + Number(d.petalWidth.toFixed(2)).toString() +" cm")
+        .attr("x", (_,i)=> 65 + i * 165 )
+        .attr("y", 105)
+    
+    down.selectAll(".down")
+    .data(lista)
+    .join("rect")
+    .attr("x", (_, i) => 40 + i * 165)
+    .attr("y", 130)
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("fill",(_, i) => colores_sepal[i])
 
-    table.append("thead")
-        .append("tr")
-        .selectAll("th")
-        .data(["Nombre", "Petalo Largo", "Petalo Ancho", "Sepalo Largo", "Sepalo Ancho"])
-        .join("th")
-        .text((d) => d)
-        .style("border", "1px black solid")
-        .style("padding", "5px")
-        .style("background-color", "lightgray")
-        .style("font-weight", "bold")
-        .style("text-transform", "uppercase");
+    down.selectAll(".down")
+        .data(lista)
+        .join("text")
+        .text((d)=>Number(d.sepalLength.toFixed(2)).toString() + " cm x " + Number(d.sepalWidth.toFixed(2)).toString() +" cm")
+        .attr("x", (_,i)=> 65 + i * 165 )
+        .attr("y", 145)
+}
+// const construccion_tabla = (info) => {
+//     const setosa = info.setosa
+//     const virginica = info.virginica
+//     const versicolor = info.versicolor
+//     const lista = [setosa, virginica, versicolor]
+
+//     const table = d3.select(".tabla")
+//                     .append("table")
+//                     .style("border-collapse", "collapse")
+//                     .style("border", "2px black solid")
+
+//     table.append("thead")
+//         .append("tr")
+//         .selectAll("th")
+//         .data(["Nombre", "Petalo Largo", "Petalo Ancho", "Sepalo Largo", "Sepalo Ancho"])
+//         .join("th")
+//         .text((d) => d)
+//         .style("border", "1px black solid")
+//         .style("padding", "5px")
+//         .style("background-color", "lightgray")
+//         .style("font-weight", "bold")
+//         .style("text-transform", "uppercase");
 
     
-     console.log(lista)
-    table.append("tbody")
-        .selectAll("tr")
-        .data(lista)
-        .join("tr")
-        .selectAll("td")
-        .data(d => d)
-        .join("td")
-        .text(d=>[d.species, d.petalLength, d.petalWidth, d.sepalLength, d.sepalWidth])
-}
+//      console.log(lista)
+//     table.append("tbody")
+//         .selectAll("tr")
+//         .data(lista)
+//         .join("tr")
+//         .selectAll("td")
+//         .data(d => d)
+//         .join("td")
+//         .text(d=>[d.species, d.petalLength, d.petalWidth, d.sepalLength, d.sepalWidth])
+// }
 
 
 // datos
@@ -216,6 +268,7 @@ const data = d3.json("iris.json", interpretador)
                     }
                     console.log(lista)
                     construccion(lista);
+                    construccion_tabla_svg(lista)
                     // construccion_tabla(lista)
                 })
                 .catch ((err) => console.log(err));
