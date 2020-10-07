@@ -160,7 +160,7 @@ const construccion_tabla = (info) => {
         .data(lista)
         .join("tr")
         .selectAll("td")
-        .data(lista)
+        .data(d => d)
         .join("td")
         .text(d=>[d.species, d.petalLength, d.petalWidth, d.sepalLength, d.sepalWidth])
 }
