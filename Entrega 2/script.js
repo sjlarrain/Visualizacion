@@ -32,6 +32,7 @@ const construccion = (info) => {
     }
     const svg = d3.select(".container")
                         .append("svg")
+                        .attr("id", "uno")
                         .attr("width", dimensiones.WIDTH)
                         .attr("height", dimensiones.HEIGHT)
                         
@@ -140,17 +141,42 @@ const construccion_tabla_svg = (info) => {
     const colores_petal = ["red", "lightyellow", "lightgrey"]
     const colores_sepal = ["pruple", "lightblue", "lightgreen"]
 
-    console.log(lista)
     const table = d3.select(".tabla")
                     .append("svg")
                     .attr("width", 600)
                     .attr("heigth", 200)
     
+    
     const up = table.append("g")
                     .attr("class", "up")
     const down = table.append("g")
                     .attr("class", "down")
+    const leyenda = table.append("g")
+                        .attr("class", "leyenda")
+
+    leyenda.append("rect")
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("x", 100)
+            .attr("y", 25)
+
+    leyenda.append("circle")
+            .attr("r", 10)
+            .attr("cx", 350)
+            .attr("cy", 35) 
     
+    leyenda.append("text")
+            .text("Sepal Largo x Ancho")
+            .attr("x", 125)
+            .attr("y", 40)
+
+    leyenda.append("text")
+            .text("Sepal Largo x Ancho")
+            .attr("x", 375)
+            .attr("y", 40)
+
+        
+
     up.selectAll(".up")
         .data(lista)
         .join("circle")
@@ -181,6 +207,7 @@ const construccion_tabla_svg = (info) => {
         .text((d)=>Number(d.sepalLength.toFixed(2)).toString() + " cm x " + Number(d.sepalWidth.toFixed(2)).toString() +" cm")
         .attr("x", (_,i)=> 65 + i * 165 )
         .attr("y", 145)
+
 }
 // const construccion_tabla = (info) => {
 //     const setosa = info.setosa

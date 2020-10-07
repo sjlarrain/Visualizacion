@@ -30,7 +30,7 @@
                 <p>Tomando lo anterior lo que se pedía era <b>representar de forma gráfica las flores</b>. Estas flores son 
                 conocidas por ser un buen material para el <i>Machine Learning y la estadística</i> como mencionaba el enunciado.</p>
                 <p>Ese requerimientos nos llevo a pensar el <b>cómo</b> hacíamos frente a esa respuesta. Para esto, se ocupo
-                la librería d3.js de Mike Bostok para la lectura de datos, procesamiento y construcción de los glifos solicitados</p>
+                la librería d3.js de Mike Bostock para la lectura de datos, procesamiento y construcción de los glifos solicitados</p>
                 <p>Hecho todo lo anterior produjimos 3 figuras para cada una de las especies en el archivo entregado.</p>
                 <ul>De estas pudimos encontrar tres tipos de especies 
                     <li>Setosa</li>
@@ -41,7 +41,7 @@
             <div class="der">
                 <ul>Una vez construido los glifos pudimos contestar los siguientes <b>¿Porque?</b>
                     <li>¿Por que estas flores son particulares para este estudio? Esto nos permite entender y descubirir su principal utilidad</li>
-                    <li>¿Efectivamente se diferencian entre ellas?</li>
+                    <li>¿Efectivamente se diferencian entre ellas? Se verá a continuación en las ilustraciones.</li>
                 </ul> 
                 <p>Como podemos ver a continuación se hicieron glifos de las tres figuras. Podemos ver que la primera impresion es una diferencia clara
                     entre la especie Setosa y las otras dos respecto en tamaño.
@@ -60,18 +60,21 @@
     <div class=subsubtitulo>Glifos segun especie</div>
     <div class="container"></div>
     <div class="tabla"></div>
-    <div class="subtitulos">Principales dificultades</div>
+    <div class="subtitulo">Principales dificultades</div>
     <div class="seccion">
         <div class="izq">
-            <p> Las principales dificultades que enfrete fueron en el trabajo con <b>d3.js</b>. Posicionar el "svg" no fue un problema al igual que agregarle los atributos a las distintas construcciones.
+            <p> Las principales dificultades que enfrete fueron en el trabajo con <b>d3.js</b>. Crear el "svg" no fue un problema al igual que agregarle los atributos a las distintas construcciones.
                 Sin embargo el posicionamiento fue muy complicado ya que me costo darme cuenta que este tomaba como referencia el (0,0) del "svg" y no el "g". Esto me di cuenta cuando intente rotar los petalos
                 para formar la flor. El <i>transform:translate(x,y)</i> me ayudo.  
             </p>
-            <p>No conocer las formas de las flores y no lograr imitar el enunciado me complico harto. A pesar de lo anterior, y cuando empecé a analizar el glifo construido me pareció bien dejarlos sobrepuestos
+            <p>No conocer las formas de las flores y no lograr imitar el enunciado me complico harto. A pesar de lo anterior cuando empecé a analizar el glifo construido me pareció bien dejarlos sobrepuestos
                 para lograr percibir de mejor forma las dimensiones deseadas.
             </p>
         </div>
         <div class="der">
+            <p> El mouseover no se me ocurrio como implementarlo. Pensé en que se dibujara un cuadrado detras de la imagen, sin embargo no se me ocurrio como
+                unir ambos <i>svges</i> y por otro lado no sabía si tenía que tener o no datos para crear la funcionalidad (ya que los ejemplos que me apoye de clases todos eran con join) 
+            </p>
             <p>Ocupando d3.js trate de crear una tabla para poder hacer referencia a las dimensiones de los sepalos y petalos. Sin embargo no se si fue la forma de implementar el codigo o por la version de d3 que fue imposible agregar los "tr" y "td"
                 que forman parte de la tabla. Finalmente desistí de hacer esto. (Quedo comentado, feliz recibo feedback de esto).
             </p>
