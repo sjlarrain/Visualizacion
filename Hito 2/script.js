@@ -46,6 +46,13 @@ const tarjeta = (player) => {
             return "silver"
         }
     }
+    const relleno = (player) => {
+        if  (["CB", "RB", "LB", "LWB", "RWB"].includes(player.position)){
+            return "blue"
+        } else if (["CM", "CAM", "CDM", "LM", "RM"].includes(player.position)){
+            return "green"
+        } else { return "red"}
+    }
 
 
     const container = d3.select(".container")
@@ -85,21 +92,34 @@ const tarjeta = (player) => {
                         .range([0, 120])
     
     const lines = [{"x":rScale(player.defending)  + centros.x, "y": centros.y},
-                    {"x":centros.x, "y": rScale(player.shooting) + centros.y}, 
+                    {"x":centros.x + 50, "y": rScale(player.shooting) + centros.y}, 
+                    {"x":centros.x - 50, "y": centros.y + rScale(player.passing)},
                     {"x": centros.x - rScale(player.pace), "y":centros.y},
-                    {"x":centros.x, "y": centros.y - rScale(player.passing)},
-                    {"x":rScale(player.defending)  + centros.x, "y": centros.y} ] //{"x":, "y":}, {"x":, "y":}
+                    {"x": centros.x - 50, "y": centros.y - rScale(player.dribbling)}, 
+                    {"x": centros.x + 50, "y": centros.y - rScale(player.physical)},
+                    {"x":rScale(player.defending)  + centros.x, "y": centros.y}]
    
-    // const lines = [{"x":centros.x + 10,"y": centros.y + 10},
-    //                 {"x":centros.x + 10,"y": centros.y - 10},
-    //                 {"x":centros.x - 10,"y": centros.y + 10},
-    //                 {"x":centros.x - 10,"y": centros.y - 10}]
-   
+    const habilidad = [{"x":centros.x + rScale(100), "y": centros.y, "text":"DEF"},
+                        {"x":centros.x + 50, "y": rScale(100) +      centros.y, "text":"SHO"},
+                        {"x":centros.x - 50, "y": rScale(100) + centros.y, "text":"PAC"},
+                        {"x":centros.x - rScale(100), "y": centros.y, "text":"PAS"},
+                        {"x":centros.x - 50, "y": centros.y - rScale(100), "text":"DRI"},
+                        {"x":centros.x + 50, "y": centros.y -rScale(100), "text":"PHY"}]
+
     container.append("path")
                 .attr("d", arc(lines))
                 .attr("transform", `translate (${margin.left} ${margin.top})`)
-                .attr("stroke", "blue")
-                .attr("fill", "white")
+                .attr("stroke", "black")
+                .attr("fill", relleno(player))
+    
+    container.selectAll(".svg")
+                .data(habilidad)
+                .join("text")
+                .text((d)=> d.text)
+                .attr("x", (d) => d.x)
+                .attr("y", (d) => d.y)
+                .attr("font-size", "0.2cm")
+                .attr("transform", `translate (${margin.left} ${margin.top})`)
         
 }
 const interpreter = (d) => {
