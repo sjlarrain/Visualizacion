@@ -56,6 +56,7 @@ const tarjeta = (player) => {
 
 
     const container = d3.select(".container")
+                        .append("div")
                         .append("svg")
                         .attr("class", "svg")
                         .attr("height", size.HEIGHT)
@@ -120,8 +121,9 @@ const tarjeta = (player) => {
                 .attr("y", (d) => d.y)
                 .attr("font-size", "0.2cm")
                 .attr("transform", `translate (${margin.left} ${margin.top})`)
-        
-}
+    return container
+
+   }
 const interpreter = (d) => {
     return { name: d.NAME,
             club: d.CLUB,
@@ -140,9 +142,18 @@ const interpreter = (d) => {
 
 d3.csv("fifa_20_data.csv", interpreter)
     .then((datos)=> {
-        console.log(datos)
-        console.log(promedio(datos))
-        tarjeta(datos[0])
+        d3.select(".full-container")
+          .data(datos)
+          .join(enter =>{
+
+              enter.append(tarjeta, (d) => d)
+                    .attr("x", (_, i) => i * 100)
+              }
+          
+
+          )
+
+
         
     })
     .catch((err) => {
