@@ -121,7 +121,7 @@ const tarjeta = (player) => {
                 .attr("y", (d) => d.y)
                 .attr("font-size", "0.2cm")
                 .attr("transform", `translate (${margin.left} ${margin.top})`)
-    return container
+    
 
    }
 const interpreter = (d) => {
@@ -142,19 +142,7 @@ const interpreter = (d) => {
 
 d3.csv("fifa_20_data.csv", interpreter)
     .then((datos)=> {
-        d3.select(".full-container")
-          .data(datos)
-          .join(enter =>{
-
-              enter.append(tarjeta, (d) => d)
-                    .attr("x", (_, i) => i * 100)
-              }
-          
-
-          )
-
-
-        
+        datos.forEach(tarjeta)
     })
     .catch((err) => {
         console.log(err)
