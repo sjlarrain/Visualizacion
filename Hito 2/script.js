@@ -49,7 +49,7 @@ const tarjeta = (player) => {
     const relleno = (player) => {
         if  (["CB", "RB", "LB", "LWB", "RWB"].includes(player.position)){
             return "blue"
-        } else if (["CM", "CAM", "CDM", "LM", "RM"].includes(player.position)){
+        } else if (["CM", "CAM", "CDM", "LM", "RM", "LF", "RF"].includes(player.position)){
             return "green"
         } else { return "red"}
     }
@@ -89,13 +89,13 @@ const tarjeta = (player) => {
             .attr("r", 120)
             .attr("fill", "white")
 
-    const arc =  d3.line()
+    const hexagono =  d3.line()
                     .x((d) => d.x)
                     .y((d) => d.y)
 
     const rScale = d3.scaleLinear()
                         . domain([0, 100])
-                        .range([0, 115])
+                        .range([0, 120])
     
     const lines = [{"x":rScale(player.defending)  + centros.x, "y": centros.y},
                     {"x":centros.x + 50, "y": rScale(player.shooting) + centros.y}, 
@@ -113,7 +113,7 @@ const tarjeta = (player) => {
                         {"x":centros.x + 50, "y": centros.y -rScale(100), "text":"PHY"}]
 
     container.append("path")
-                .attr("d", arc(lines))
+                .attr("d", hexagono(lines))
                 .attr("transform", `translate (${margin.left} ${margin.top})`)
                 .attr("stroke", "black")
                 .attr("fill", relleno(player))
@@ -126,6 +126,22 @@ const tarjeta = (player) => {
                 .attr("y", (d) => d.y)
                 .attr("font-size", "0.3cm")
                 .attr("transform", `translate (${margin.left} ${margin.top})`)
+
+    const arcos =    d3.arc()
+                    .innerRadius(0)
+                    .startAngle(0)
+                    .endAngle(2 * Math.PI)
+                    
+                
+    const medidasArcos = [rScale(80), rScale(60), rScale(40), rScale(20)]
+    
+    container.selectAll(".svg")
+                .data(medidasArcos)
+                .join("path")
+                .attr("d",(d) => arcos({outerRadius: d}))
+                .attr("transform", `translate (${centros.x + margin.left} ${centros.y+ margin.top})`)
+                .attr("stroke", "black")
+                .attr("fill", "transparent")
     
 
    }
@@ -143,6 +159,10 @@ const circuloResumen = (lista) => {
                         .attr("height", size.HEIGHT)
                         .attr("transform", "translate (0 400)")
                         
+    container.append("text")
+            .text("JUGADOR PROMEDIO")
+            .attr("class", "subtitulo")
+            .attr("x", 70)
     container.append("rect")
             .attr("width", size.WIDTH)
             .attr("height", size.HEIGHT)
@@ -160,7 +180,7 @@ const circuloResumen = (lista) => {
 
     const rScale = d3.scaleLinear()
                     . domain([0, 100])
-                    .range([0, 115])
+                    .range([0, 120])
 
     const lines = [{"x":rScale(lista[5])  + centros.x, "y": centros.y},
                 {"x":centros.x + 50, "y": rScale(lista[2]) + centros.y}, 
@@ -192,8 +212,23 @@ const circuloResumen = (lista) => {
             .attr("font-size", "0.3cm")
             //.attr("transform", `translate (${margin.left} ${margin.top})`)
 
+    const arcos =    d3.arc()
+                        .innerRadius(0)
+                        .startAngle(0)
+                        .endAngle(2 * Math.PI)
 
+
+    const medidasArcos = [rScale(80), rScale(60), rScale(40), rScale(20)]
+
+    container.selectAll(".svg")
+    .data(medidasArcos)
+    .join("path")
+    .attr("d",(d) => arcos({outerRadius: d}))
+    .attr("transform", `translate (${centros.x } ${centros.y})`)
+    .attr("stroke", "black")
+    .attr("fill", "transparent")
 }
+
 const interpreter = (d) => {
     return { name: d.NAME,
             club: d.CLUB,
