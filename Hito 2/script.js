@@ -26,10 +26,10 @@ const promedio = (datos) => {
 const tarjeta = (player) => {
     const size = {HEIGHT: 450,
                   WIDTH: 400}
-    const margin = {left: 20,
-                    right: 20,
-                    top: 30,
-                    bottom: 30}
+    const margin = {left: 5,
+                    right: 5,
+                    top: 10,
+                    bottom: 10}
     const texto = [player.name, player.club, player.league, player.rating]
     const posicion = [[100,20], [100,40], [100,60],[20,20]]
     const tamanho = ["0.6cm", "0.4cm", "0.4cm", "0.6cm"]
@@ -40,7 +40,7 @@ const tarjeta = (player) => {
     const color = (player) => {
         if (player.rating >= 75) {
             return "gold"
-        } else if (player.rating < 60) {
+        } else if (player.rating < 65) {
             return "#CD7F32"
         } else {
             return "silver"
@@ -69,6 +69,8 @@ const tarjeta = (player) => {
             .attr("width", size.WIDTH - margin.left - margin.right)
             .attr("transform", `translate (${margin.left} ${margin.top})`)
             .attr("fill", color(player))
+            .attr("border-radius", "25px")
+    
     
     container.selectAll(".svg")
             .data(texto)
@@ -93,7 +95,7 @@ const tarjeta = (player) => {
 
     const rScale = d3.scaleLinear()
                         . domain([0, 100])
-                        .range([0, 120])
+                        .range([0, 115])
     
     const lines = [{"x":rScale(player.defending)  + centros.x, "y": centros.y},
                     {"x":centros.x + 50, "y": rScale(player.shooting) + centros.y}, 
@@ -106,7 +108,7 @@ const tarjeta = (player) => {
     const habilidad = [{"x":centros.x + rScale(100), "y": centros.y, "text":"DEF"},
                         {"x":centros.x + 50, "y": rScale(100) +      centros.y, "text":"SHO"},
                         {"x":centros.x - 50, "y": rScale(100) + centros.y, "text":"PAC"},
-                        {"x":centros.x - rScale(100), "y": centros.y, "text":"PAS"},
+                        {"x":centros.x - rScale(100)-20, "y": centros.y, "text":"PAS"},
                         {"x":centros.x - 50, "y": centros.y - rScale(100), "text":"DRI"},
                         {"x":centros.x + 50, "y": centros.y -rScale(100), "text":"PHY"}]
 
@@ -122,11 +124,76 @@ const tarjeta = (player) => {
                 .text((d)=> d.text)
                 .attr("x", (d) => d.x)
                 .attr("y", (d) => d.y)
-                .attr("font-size", "0.2cm")
+                .attr("font-size", "0.3cm")
                 .attr("transform", `translate (${margin.left} ${margin.top})`)
     
 
    }
+
+const circuloResumen = (lista) => {
+    const size = {WIDTH: 400,
+                    HEIGHT: 400
+                    }
+    const centros = { "x": size.WIDTH / 2,
+                      "y":size.HEIGHT / 2
+                    }
+    const container = d3.selectAll(".resumen")
+                        .append("svg")
+                        .attr("width", size.WIDTH)
+                        .attr("height", size.HEIGHT)
+                        .attr("transform", "translate (0 400)")
+                        
+    container.append("rect")
+            .attr("width", size.WIDTH)
+            .attr("height", size.HEIGHT)
+            .attr("fill", "grey")
+
+    container.append("circle")
+            .attr("cx", centros.x)
+            .attr("cy", centros.x)
+            .attr("r", 120)
+            .attr("fill", "white")
+        
+    const arc =  d3.line()
+    .x((d) => d.x)
+    .y((d) => d.y)
+
+    const rScale = d3.scaleLinear()
+                    . domain([0, 100])
+                    .range([0, 115])
+
+    const lines = [{"x":rScale(lista[5])  + centros.x, "y": centros.y},
+                {"x":centros.x + 50, "y": rScale(lista[2]) + centros.y}, 
+                {"x":centros.x - 50, "y": centros.y + rScale(lista[3])},
+                {"x": centros.x - rScale(lista[1]), "y":centros.y},
+                {"x": centros.x - 50, "y": centros.y - rScale(lista[4])}, 
+                {"x": centros.x + 50, "y": centros.y - rScale(lista[6])},
+                {"x":rScale(lista[5])  + centros.x, "y": centros.y}]
+
+    const habilidad = [{"x":centros.x + rScale(100), "y": centros.y, "text":"DEF"},
+                    {"x":centros.x + 50, "y": rScale(100) +      centros.y, "text":"SHO"},
+                    {"x":centros.x - 50, "y": rScale(100) + centros.y, "text":"PAC"},
+                    {"x":centros.x - rScale(100) - 20, "y": centros.y, "text":"PAS"},
+                    {"x":centros.x - 50, "y": centros.y - rScale(100), "text":"DRI"},
+                    {"x":centros.x + 50, "y": centros.y -rScale(100), "text":"PHY"}]
+
+    container.append("path")
+            .attr("d", arc(lines))
+            //.attr("transform", `translate (${margin.left} ${margin.top})`)
+            .attr("stroke", "black")
+            .attr("fill", "#ffff66")
+
+    container.selectAll(".svg")
+            .data(habilidad)
+            .join("text")
+            .text((d)=> d.text)
+            .attr("x", (d) => d.x)
+            .attr("y", (d) => d.y)
+            .attr("font-size", "0.3cm")
+            //.attr("transform", `translate (${margin.left} ${margin.top})`)
+
+
+}
 const interpreter = (d) => {
     return { name: d.NAME,
             club: d.CLUB,
@@ -146,12 +213,13 @@ const interpreter = (d) => {
 
 d3.csv("fifa_20_data.csv", interpreter)
     .then((datos)=> {
+        circuloResumen(promedio(datos))
         datos.forEach(tarjeta)
         const container = d3.selectAll(".jugador")
         container.on("mouseenter", (evento)=>{
         const seleccion = "." + evento.currentTarget.className.split(" ")
                                                              .join(".")
-        console.log(seleccion)
+
         const fullContainer = d3.selectAll(".container")
             fullContainer.selectAll(seleccion)
             .style("opacity", "1")
@@ -159,7 +227,7 @@ d3.csv("fifa_20_data.csv", interpreter)
         .on("mouseleave", (evento) => {
             const seleccion = "." + evento.currentTarget.className.split(" ")
                                                              .join(".")
-        //console.log(seleccion)
+
         const fullContainer = d3.selectAll(".container")
             fullContainer.selectAll(seleccion)
             .style("opacity", "0.5")

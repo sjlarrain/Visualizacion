@@ -4,7 +4,13 @@ text {
     
 }
 
+svg {
+   font-family: "Helvetica";
+}
+
 .container {
+    margin-left: 400px;
+    margin-top: 95px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
@@ -12,3 +18,33 @@ text {
 .svg {
     text-align: justify;
 }
+
+
+
+.resumen { /*Todo este codigo fue lo proveido en el anuncio del curso*/
+    height: 100%;
+    width: 400px;
+    position: fixed;
+    z-index: 1;
+    margin-top: 100px;
+    top:0;
+    left:0;
+    background-color: grey;
+}
+
+.title {
+    text-align: center;
+    font-size: 1.5cm;
+    font-family: "Courier New";
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    overflow-y: hidden;
+    z-index:1;
+    top:0;
+    left:0;
+    background-color: grey;
+    color: white
+}
+
+
