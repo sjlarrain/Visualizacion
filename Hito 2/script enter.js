@@ -115,6 +115,10 @@ d3.csv("fifa_20_data.csv", interpreter)
                                 . domain([0, 100])
                                 .range([0, 120])
             
+
+
+            const numbers = Array.from(datos, )
+            
             const lines = [{"x":rScale((d)=> d.defending)  + centros.x, "y": centros.y},
                             {"x":centros.x + 50, "y": rScale((d)=> d.shooting) + centros.y}, 
                             {"x":centros.x - 50, "y": centros.y + rScale((d)=> d.passing)},

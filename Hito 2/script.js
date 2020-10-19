@@ -24,15 +24,15 @@ const promedio = (datos) => {
 } 
 
 const tarjeta = (player) => {
-    const size = {HEIGHT: 600,
-                  WIDTH: 600}
-    const margin = {left: 100,
-                    right: 100,
-                    top: 70,
-                    bottom: 70}
+    const size = {HEIGHT: 450,
+                  WIDTH: 400}
+    const margin = {left: 20,
+                    right: 20,
+                    top: 30,
+                    bottom: 30}
     const texto = [player.name, player.club, player.league, player.rating]
     const posicion = [[100,20], [100,40], [100,60],[20,20]]
-    const tamanho = ["0.7cm", "0.5cm", "0.5cm", "0.7cm"]
+    const tamanho = ["0.6cm", "0.4cm", "0.4cm", "0.6cm"]
     const centros = {x: (size.WIDTH - margin.left - margin.right) / 2, 
                 y: (size.HEIGHT - margin.top -margin.bottom) / 2 + 50 }
     
@@ -41,7 +41,7 @@ const tarjeta = (player) => {
         if (player.rating >= 75) {
             return "gold"
         } else if (player.rating < 60) {
-            return "bronce"
+            return "#CD7F32"
         } else {
             return "silver"
         }
@@ -57,6 +57,8 @@ const tarjeta = (player) => {
 
     const container = d3.select(".container")
                         .append("div")
+                        .attr("class", `${player.club} jugador`)
+                        .style("opacity", "0.5")
                         .append("svg")
                         .attr("class", "svg")
                         .attr("height", size.HEIGHT)
@@ -72,6 +74,7 @@ const tarjeta = (player) => {
             .data(texto)
              .join("text")
              .style("font-size", (_, i) => tamanho[i])
+             .style( "text-align", "justify")
              .text((d) => d)
              .attr("x", (_,i) => posicion[i][0])
              .attr("y", (_,i)=> posicion[i][1] + 30)
@@ -140,9 +143,27 @@ const interpreter = (d) => {
     }
 }
 
+
 d3.csv("fifa_20_data.csv", interpreter)
     .then((datos)=> {
         datos.forEach(tarjeta)
+        const container = d3.selectAll(".jugador")
+        container.on("mouseenter", (evento)=>{
+        const seleccion = "." + evento.currentTarget.className.split(" ")
+                                                             .join(".")
+        console.log(seleccion)
+        const fullContainer = d3.selectAll(".container")
+            fullContainer.selectAll(seleccion)
+            .style("opacity", "1")
+        })
+        .on("mouseleave", (evento) => {
+            const seleccion = "." + evento.currentTarget.className.split(" ")
+                                                             .join(".")
+        //console.log(seleccion)
+        const fullContainer = d3.selectAll(".container")
+            fullContainer.selectAll(seleccion)
+            .style("opacity", "0.5")
+        })
     })
     .catch((err) => {
         console.log(err)
