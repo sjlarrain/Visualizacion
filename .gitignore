@@ -3,5 +3,6 @@ _pycache_/
 *.csv
 *.json
 *.log
+*.zip
 
 
