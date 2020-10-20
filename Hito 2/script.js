@@ -159,14 +159,19 @@ const circuloResumen = (lista) => {
                         .attr("height", size.HEIGHT)
                         .attr("transform", "translate (0 400)")
                         
-    container.append("text")
-            .text("JUGADOR PROMEDIO")
-            .attr("class", "subtitulo")
-            .attr("x", 70)
+    
+
     container.append("rect")
             .attr("width", size.WIDTH)
             .attr("height", size.HEIGHT)
             .attr("fill", "grey")
+    container.append("text")
+            .text("JUGADOR PROMEDIO")
+            .attr("class", "subtitulo")
+            .attr("x", 115)
+            .attr("y", 50)
+            .attr("font-size", "0.5cm")
+            .attr("fill", "white")
 
     container.append("circle")
             .attr("cx", centros.x)

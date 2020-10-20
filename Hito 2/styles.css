@@ -8,6 +8,11 @@ svg {
    font-family: "Helvetica";
 }
 
+p {
+    margin:0;
+    margin-left: 10px;
+}
+
 .container {
     margin-left: 400px;
     margin-top: 95px;
@@ -30,6 +35,9 @@ svg {
     top:0;
     left:0;
     background-color: grey;
+    color: white;
+    font-family: "Courier New";
+    
 }
 
 .title {
@@ -47,9 +55,7 @@ svg {
     color: white
 }
 
-.subtitulo {
-    font-size: "0.7cm";
-    color: white;
-}
+
+    
 
 
