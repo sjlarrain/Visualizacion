@@ -17,7 +17,6 @@ const promedio = (datos) => {
     }
     const arr = [prom_rating, prom_pace, prom_shooting, prom_passing,
     prom_dribbling, prom_defending, prom_physical]
-    console.log(arr)
     const result = arr.map((x) => parseInt((x / datos.length).toFixed(0)))
     return result
     
@@ -30,9 +29,9 @@ const tarjeta = (player) => {
                     right: 5,
                     top: 10,
                     bottom: 10}
-    const texto = [player.name, player.club, player.league, player.rating]
-    const posicion = [[100,20], [100,40], [100,60],[20,20]]
-    const tamanho = ["0.6cm", "0.4cm", "0.4cm", "0.6cm"]
+    const texto = [player.name, player.club, player.league, player.rating, player.position]
+    const posicion = [[100,20], [100,40], [100,60],[20,20], [330, 20]]
+    const tamanho = ["0.6cm", "0.4cm", "0.4cm", "0.6cm", "0.6cm"]
     const centros = {x: (size.WIDTH - margin.left - margin.right) / 2, 
                 y: (size.HEIGHT - margin.top -margin.bottom) / 2 + 50 }
     
@@ -146,13 +145,19 @@ const tarjeta = (player) => {
 
    }
 
-const circuloResumen = (lista) => {
+const circuloResumen = (lista, numero) => {
     const size = {WIDTH: 400,
                     HEIGHT: 400
                     }
     const centros = { "x": size.WIDTH / 2,
                       "y":size.HEIGHT / 2
                     }
+    
+    d3.selectAll(".resumen")
+        .append("p")
+        .text(`Cantidad tarjetas: ${numero}`)
+        .style("font-size: 0.5cm;")
+
     const container = d3.selectAll(".resumen")
                         .append("svg")
                         .attr("width", size.WIDTH)
@@ -253,7 +258,7 @@ const interpreter = (d) => {
 
 d3.csv("fifa_20_data.csv", interpreter)
     .then((datos)=> {
-        circuloResumen(promedio(datos))
+        circuloResumen(promedio(datos), datos.length)
         datos.forEach(tarjeta)
         const container = d3.selectAll(".jugador")
         container.on("mouseenter", (evento)=>{
