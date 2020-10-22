@@ -155,14 +155,16 @@ const circuloResumen = (lista, numero) => {
     
     d3.selectAll(".resumen")
         .append("p")
+        .attr("class", "qtarjetas")
         .text(`Cantidad tarjetas: ${numero}`)
         .style("font-size: 0.5cm;")
 
     const container = d3.selectAll(".resumen")
                         .append("svg")
+                        .attr("class", "qtarjetas")
                         .attr("width", size.WIDTH)
                         .attr("height", size.HEIGHT)
-                        .attr("transform", "translate (0 400)")
+                        .attr("transform", "translate (0 250)")
                         
     
 
@@ -255,41 +257,110 @@ const interpreter = (d) => {
     }
 }
 
-const filtro = (x, nivel, liga) => {
-    if (liga == "todos") {
-        if (x.rating > nivel) {
+const filtro = (x, min, max, liga) => {
+    if (liga == "todos" ) {
+        if (x.rating >= min && x.rating <= max) {
             return x
         } 
     } else {
-        if (x.rating > nivel && x.league == liga){
+        if (x.league == liga){
+            if (x.rating >= min && x.rating <= max ){
             return x
-        }
-        
+                }
+        }        
     }
 }
 
 d3.csv("fifa_20_data.csv", interpreter)
     .then((datos) => {
-        let data = datos.slice(0,8)
+        let data = datos
         const opciones = document.getElementById("drop")
         let optionValue = opciones.value
+        const minimo =  document.getElementById("minimo")
+        let minValue = minimo.value
+        const maximo =  document.getElementById("maximo")
+        let maxValue = maximo.value
+
+
         opciones.oninput = function () {
             optionValue = this.value;
-            data = datos.filter(x => filtro(x, sliderValue, optionValue))
-            d3.selectAll(".jugador").remove()
-            data.forEach(tarjeta)
+            data = datos.filter(x => filtro(x, minValue, maxValue, optionValue))
+            d3.selectAll(".jugador").remove();
+            d3.selectAll(".qtarjetas").remove();
+            circuloResumen(promedio(data), data.length)
+            data.forEach(tarjeta);
+            const container = d3.selectAll(".jugador")
+            container.on("mouseenter", (evento)=>{
+            const seleccion = "." + evento.currentTarget.className.split(" ")
+                                                                .join(".")
+
+            const fullContainer = d3.selectAll(".container")
+                fullContainer.selectAll(seleccion)
+                .style("opacity", "1")
+            })
+            .on("mouseleave", (evento) => {
+                const seleccion = "." + evento.currentTarget.className.split(" ")
+                                                                .join(".")
+
+            const fullContainer = d3.selectAll(".container")
+                fullContainer.selectAll(seleccion)
+                .style("opacity", "0.5")
+            })
         }
 
-        const slider =  document.getElementById("myRange")
-        let sliderValue = slider.value
-        slider.oninput = function () {
-            sliderValue = this.value;
-            console.log(sliderValue)
-            data = datos.filter(x => filtro(x, sliderValue, optionValue))
-            d3.selectAll(".jugador").remove()
-            data.forEach(tarjeta)
+        minimo.oninput = function () {
+            minValue = this.value;
+            data = datos.filter(x => filtro(x, minValue, maxValue, optionValue))
+            d3.selectAll(".jugador").remove();
+            d3.selectAll(".qtarjetas").remove();
+            circuloResumen(promedio(data), data.length);
+            data.forEach(tarjeta);
+            const container = d3.selectAll(".jugador")
+            container.on("mouseenter", (evento)=>{
+            const seleccion = "." + evento.currentTarget.className.split(" ")
+                                                                .join(".")
+
+            const fullContainer = d3.selectAll(".container")
+                fullContainer.selectAll(seleccion)
+                .style("opacity", "1")
+            })
+            .on("mouseleave", (evento) => {
+                const seleccion = "." + evento.currentTarget.className.split(" ")
+                                                                .join(".")
+
+            const fullContainer = d3.selectAll(".container")
+                fullContainer.selectAll(seleccion)
+                .style("opacity", "0.5")
+            })
 
         }
+        
+        maximo.oninput = function () {
+            maxValue = this.value;
+            data = datos.filter(x => filtro(x, minValue, maxValue, optionValue));
+            d3.selectAll(".jugador").remove();
+            d3.selectAll(".qtarjetas").remove();
+            circuloResumen(promedio(data), data.length)
+            data.forEach(tarjeta);
+            const container = d3.selectAll(".jugador")
+            container.on("mouseenter", (evento)=>{
+            const seleccion = "." + evento.currentTarget.className.split(" ")
+                                                                .join(".")
+
+            const fullContainer = d3.selectAll(".container")
+                fullContainer.selectAll(seleccion)
+                .style("opacity", "1")
+            })
+            .on("mouseleave", (evento) => {
+                const seleccion = "." + evento.currentTarget.className.split(" ")
+                                                                .join(".")
+
+            const fullContainer = d3.selectAll(".container")
+                fullContainer.selectAll(seleccion)
+                .style("opacity", "0.5")
+            })
+        }
+        
         circuloResumen(promedio(data), data.length)
         data.forEach(tarjeta)
 

@@ -14,6 +14,7 @@
             <p style="font-size: 1cm">Hito 2</p>
             <p style="font-size: 0.5cm">Alumno: Santiago J. Larraín</p>
             <p style="font-size: 0.5cm">Profesor: Fernando Florenzano</p>
+            <p style="font-size: 1cm">Filtro liga</p>
             <select name="liga" id="drop">
                 <option value="todos">Todos</option>
                 <option value="Spain Primera Division">Spain Primera Division</option>
@@ -23,8 +24,14 @@
                 <option value="Germany 1. Bundesliga">Germany 1. Bundesliga</option>
                 <option value="Chile Campeonato Nacional Scotiabank">Chile Campeonato Nacional Scotiabank</option>
             </select>
-            <div class="slidecontainer">
-                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            <p style="font-size: 1cm">Filtro talento</p>
+            <div class="filtro">
+                <p>Minimo:</p>
+                <input type="number" value="0" class="entrada" id="minimo">
+            </div>
+            <div class="filtro">
+                <p>Maximo:</p>
+                <input type="number" value="100" class="entrada" id="maximo">
             </div>
 
         </div>
