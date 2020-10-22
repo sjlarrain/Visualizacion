@@ -106,7 +106,7 @@ const tarjeta = (player) => {
    
     const habilidad = [{"x":centros.x + rScale(100), "y": centros.y, "text":"DEF"},
                         {"x":centros.x + 50, "y": rScale(100) +      centros.y, "text":"SHO"},
-                        {"x":centros.x - 50, "y": rScale(100) + centros.y, "text":"PAC"},
+                        {"x":centros.x - 55, "y": rScale(100) + centros.y + 5, "text":"PAC"},
                         {"x":centros.x - rScale(100)-20, "y": centros.y, "text":"PAS"},
                         {"x":centros.x - 50, "y": centros.y - rScale(100), "text":"DRI"},
                         {"x":centros.x + 50, "y": centros.y -rScale(100), "text":"PHY"}]
@@ -164,7 +164,7 @@ const circuloResumen = (lista, numero) => {
                         .attr("class", "qtarjetas")
                         .attr("width", size.WIDTH)
                         .attr("height", size.HEIGHT)
-                        .attr("transform", "translate (0 250)")
+                        .attr("transform", "translate (0 200)")
                         
     
 
@@ -204,7 +204,7 @@ const circuloResumen = (lista, numero) => {
 
     const habilidad = [{"x":centros.x + rScale(100), "y": centros.y, "text":"DEF"},
                     {"x":centros.x + 50, "y": rScale(100) +      centros.y, "text":"SHO"},
-                    {"x":centros.x - 50, "y": rScale(100) + centros.y, "text":"PAC"},
+                    {"x":centros.x - 55, "y": rScale(100) + centros.y + 5, "text":"PAC"},
                     {"x":centros.x - rScale(100) - 20, "y": centros.y, "text":"PAS"},
                     {"x":centros.x - 50, "y": centros.y - rScale(100), "text":"DRI"},
                     {"x":centros.x + 50, "y": centros.y -rScale(100), "text":"PHY"}]
