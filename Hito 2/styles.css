@@ -55,6 +55,23 @@ p {
     color: white
 }
 
+.slidecontainer {  
+    margin: 5px;
+    margin-left: 10px;
+    width: 90%; 
+    height: 25px; background: #d3d3d3; 
+    align-items: center;
+  }
+  .slider {
+      width: 90%;
+  }
+
+#drop {
+    margin: 5px;
+    margin-left: 10px;
+    width: 90%;
+    height: 30px;  
+}
 
     
 

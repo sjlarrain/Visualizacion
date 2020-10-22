@@ -255,11 +255,45 @@ const interpreter = (d) => {
     }
 }
 
+const filtro = (x, nivel, liga) => {
+    if (liga == "todos") {
+        if (x.rating > nivel) {
+            return x
+        } 
+    } else {
+        if (x.rating > nivel && x.league == liga){
+            return x
+        }
+        
+    }
+}
 
 d3.csv("fifa_20_data.csv", interpreter)
-    .then((datos)=> {
-        circuloResumen(promedio(datos), datos.length)
-        datos.forEach(tarjeta)
+    .then((datos) => {
+        let data = datos.slice(0,8)
+        const opciones = document.getElementById("drop")
+        let optionValue = opciones.value
+        opciones.oninput = function () {
+            optionValue = this.value;
+            data = datos.filter(x => filtro(x, sliderValue, optionValue))
+            d3.selectAll(".jugador").remove()
+            data.forEach(tarjeta)
+        }
+
+        const slider =  document.getElementById("myRange")
+        let sliderValue = slider.value
+        slider.oninput = function () {
+            sliderValue = this.value;
+            console.log(sliderValue)
+            data = datos.filter(x => filtro(x, sliderValue, optionValue))
+            d3.selectAll(".jugador").remove()
+            data.forEach(tarjeta)
+
+        }
+        circuloResumen(promedio(data), data.length)
+        data.forEach(tarjeta)
+
+        
         const container = d3.selectAll(".jugador")
         container.on("mouseenter", (evento)=>{
         const seleccion = "." + evento.currentTarget.className.split(" ")
