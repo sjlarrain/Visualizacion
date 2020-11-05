@@ -1,0 +1,29 @@
+body {
+    font-family: 'Courier New';
+    }
+
+.titulo {
+    margin: 15px;
+    font-size: "2cm";
+    text-align: center;
+}
+
+.subtitulo {
+    margin: 15px;
+    font-size: "1.5cm";
+    text-align: center;
+}
+
+.container {
+    margin-left: 200px;
+    
+    border: "thick solid black";
+}
+.svg {
+    margin: 1px
+}
+.info {
+    margin-left: 20px;
+    margin-right: 20px;
+
+}

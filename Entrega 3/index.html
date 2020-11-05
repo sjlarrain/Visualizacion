@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v6.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <title>Entrega 3</title>
+</head>
+<body>
+    <div class="titulo">
+        Mapa de Airbnb
+    </div>
+    <div class="subtitulo">
+        El mapa esta de acuerdo a la cantidad de <i>reviews</i> que tiene cada lugar.
+    </div>
+    <div class="container"></div>
+    <div class="subtitulo">Descripciones</div>   
+        <div class="info"> 
+            <p>Para trabajar con menos datos y hacer una mejor visualización, reduciendo el problema de la oclusión; tomamos solo los Airbnb que tuvieran mas de 100 <i>reviews</i>. 
+            <p>De acuerdo al tipo de proyección cartográfica se ocupó <b>geoWinkel3</b> con el fin de buscar el punto medio entre presición del área
+            y la forma. A pesar que este punto no debería ser muy influyente por el tamaño del área a representar, se considero que era mejor.</p>
+            <p>
+                <ul>Los colores ocupados fueron los siguientes.
+                    <li><b>Precio</b>: Para el precio se decido construir una escala secuencial para poder representar de buena forma la variación de los
+                    precios. Tomando en cuenta que preferímos pagar lo menos posible, se tomo el verde como el precios mínimos y el rojo como los precios máximos
+                    pasando por el amarillo</li>
+                    <li><b>Mapa</b>: El mapa se tomo el color <b>gris</b> , con los bordes del mismo color. La razón para tomar esto es de constraste, para así poder identificar de mejor forma las ubicaciones
+                    y los precios a considerar.</li>
+                </ul>
+
+            </p>
+            <p> Para el <b>zoom</b> se puede hacer a través del doble click o bien con la rueda del mouse. Para el <b>pan</b> a través del <i>click&drag</i>. </p>
+            <p>Las distintas ubicaciones las  agregamos en el mapa a través de un elemento <i>circle</i> con el fin de poder representar en el mapa una ubicación de un Airbnb en Madrid</p>
+        </div>
+     
+</body>
+<script src="script.js"></script>
+</html>
