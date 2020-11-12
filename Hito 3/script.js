@@ -27,30 +27,30 @@ const interpreter = (d) => {
         MUJERES: parseInt(d.MUJERES),
         DENSIDAD: parseFloat(d.DENSIDAD),
         INDICE_MAS: parseFloat(d.INDICE_MAS),
-        INDICE_MAS: parseFloat(d.INDICE_DEP),
+        INDICE_DEP: parseFloat(d.INDICE_DEP),
         IND_DEP_JU: parseFloat(d.IND_DEP_JU),
         IND_DEP_VE: parseFloat(d.IND_DEP_VE)
     }
 };
 d3.csv("censo.csv", interpreter).then((datos) =>{
-    const maxTotal_Viviendas = d3.max(datos, (d) => d.TOTAL_VIVI)
+    const maxDependencia = d3.max(datos, (d) => d.INDICE_DEP)
+    const promedio = d3.mean(datos, (d) => d.INDICE_DEP)
     const info = datos
     const Escala = d3.scaleSequential()
-                    .interpolator(d3.interpolateRdYlGn) 
-                    .domain([0, maxTotal_Viviendas])
+                    .interpolator(d3.interpolateMagma) 
+                    .domain([0, maxDependencia])
 
 
 
-const valor = (dato1, dato2, datos) =>{
-    console.log(dato1.toUpperCase(), dato2)
+const valor = (dato1, dato2, datos) =>{ 
     for (let i=0; i<datos.length;i++){
         let dato = datos[i];
     
         if (dato1.toUpperCase() == dato.NOM_COMUNA && dato2 == dato.ID){
-            console.log(dato.TOTAL_VIVI)
-            return Escala(dato.TOTAL_VIVI)
-        }
+            return Escala(dato.INDICE_DEP)
+        } 
     }
+    return Escala(promedio)
 
 }
 
@@ -74,8 +74,28 @@ const driverZoom = (evento) => {
     g.attr("transform", t);
 
 }
-    
+const contenedorBrush = svg
+  .append("g")
+//   .attr("transform", `translate(${margin.left} ${margin.top})`);
 
+const brushed = (evento) => {
+    const seleccion = evento.selection;
+    console.log(seleccion);
+}
+const brush = d3
+  .brush()
+  .extent([
+    [0, 0],
+    [size.width, size.height],
+  ])
+  .on("brush", brushed)
+
+
+contenedorBrush.call(brush).call(brush.move, [
+    [100, 100],
+    [200, 200],
+  ]);
+  
 const zoom = d3.zoom()
 .extent([[0, 0], [size.width, size.height]])
 .translateExtent([[0, 0], [size.width, size.height]])
