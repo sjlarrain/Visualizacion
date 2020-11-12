@@ -66,7 +66,7 @@ d3.json("comunas.geojson").then((datos) => {
         .attr("class", "geopath")
         .attr("fill", (d)=> valor(d.properties.comuna,d.properties.id, info))
         .attr("opacity", 0.3)
-        .attr("stroke", "grey")
+        
 })
 })
 const driverZoom = (evento) => {

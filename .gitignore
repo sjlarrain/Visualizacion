@@ -4,5 +4,7 @@ _pycache_/
 *.json
 *.log
 *.zip
+*.geojson
+
 
 
