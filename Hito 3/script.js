@@ -1,16 +1,3 @@
-const size = {
-    width: 800,
-    height:500
-};
-
-const svg = d3.selectAll(".container")
-              .append("svg")
-              .attr("class", 'svg1')
-              .attr("width", size.width)
-              .attr("height", size.height);
-
-const g = svg.append("g")
-
 const interpreter = (d) => {
     return {ID: parseInt(d.ID),
         REGION: parseInt(d.REGION),
@@ -32,20 +19,84 @@ const interpreter = (d) => {
         IND_DEP_VE: parseFloat(d.IND_DEP_VE)
     }
 };
+const size = {
+    width: 400,
+    height:400
+};
+
+const svg = d3.selectAll(".container")
+              .append("svg")
+              .attr("class", 'svg1')
+              .attr("width", size.width)
+              .attr("height", size.height);
+
+const g = svg.append("g")
+
 
 const detalle = d3.selectAll(".container")
                 .append("svg")
                 .attr("class", 'svg2')
                 .attr("width", size.width)
                 .attr("height", size.height);
+
+const grafico = (datos) => {
+    const labels = ['% Hombres', '% Mujeres', 'Ind Dependencia', '% Vivienda Particular', '% Vivienda Colectiva']
+    const maxValor = (datos) => {
+        const valor = d3.max(datos)
+        if (valor > 100){
+            return valor
+        } else { return 100}
+    }
+
+    const x = d3.scaleBand().range([0, size.width - 25]).domain(labels).padding(0.1)
+    const y = d3.scaleLinear().range([size.height - 25, 0]). domain([0, maxValor(datos)])
+    detalle.append("g")
+            .attr("class", "axisX")
+            .attr('transform', `translate(25 ${size.height - 25})`)
+            .call(d3.axisBottom(x))
+    
+    detalle.append("g")
+            .attr('transform', `translate(25 0)`)
+            .attr("class", 'axisY')
+            .call(d3.axisLeft(y))
+    
+    detalle.selectAll(".bar")
+            .data(datos)
+            .enter()
+            .append("rect")
+            .attr('class', 'bar')
+            .attr("x", (_, i) => x(labels[i]) + 25)
+            .attr("y", (d) => y(d))
+            .attr("width", x.bandwidth())
+            .attr("height", (d) => size.height - y(d) -25)
+            .style("fill", 'green')
+            
+}
+
+const obtenerInfo = (clase, datos) => {
+    for (let i=0; i<datos.length;i++){
+        let dato = datos[i];
+        if (clase == dato.ID){
+            const porHombre = dato.HOMBRES / dato.TOTAL_PERS * 100
+            const porMujer = 100 - porHombre
+            const dependencia = dato.INDICE_DEP
+            const particular = dato.PARTICULAR / dato.TOTAL_VIVI * 100
+            const colectiva = 100 - particular
+            console.log([porHombre, porMujer, dependencia, particular, colectiva])
+            return [porHombre, porMujer, dependencia, particular, colectiva]
+        } 
+    }
+    return [0, 0, 0, 0, 0]
+}
+
  
 d3.csv("censo.csv", interpreter).then((datos) =>{
-    const maxDependencia = d3.max(datos, (d) => d.INDICE_DEP)
-    const promedio = d3.mean(datos, (d) => d.INDICE_DEP)
+    const MaxTOTAL_PERS = d3.max(datos, (d) => d.TOTAL_PERS)
+    const promedio = d3.mean(datos, (d) => d.TOTAL_PERS)
     const info = datos
     const Escala = d3.scaleSequential()
                     .interpolator(d3.interpolateMagma) 
-                    .domain([0, maxDependencia])
+                    .domain([0, MaxTOTAL_PERS])
 
 
 
@@ -53,7 +104,7 @@ const valor = (datoId, datos) =>{
     for (let i=0; i<datos.length;i++){
         let dato = datos[i];
         if (datoId == dato.ID){
-            return Escala(dato.INDICE_DEP)
+            return Escala(dato.TOTAL_PERS)
         } 
     }
     return Escala(promedio)
@@ -72,16 +123,22 @@ d3.json("comunas.geojson").then((datos) => {
         .attr("class", (d)=>d.properties.id)
         .attr("fill", (d) => valor(d.properties.id, info))
         .attr("opacity", 0.3)
+        .attr("stroke", "black")
+        .attr("stroke-width", '0.03')
         .on("mouseover", mouseover)
         .on("mouseout", mouseout)
 
         function mouseover() {
-            console.log(this)
+            const clase = this.className.baseVal
+            const datos_comuna = obtenerInfo(clase, info)
+            grafico(datos_comuna)
             d3.select(this).attr("fill", "green");
+
           }
         function mouseout() {
             const clase = this.className.baseVal
-            console.log(clase)
+            detalle.selectAll(".bar")
+                    .remove()
             d3.select(this).attr("fill", valor(clase, info))
         }
     })
@@ -94,24 +151,7 @@ const driverZoom = (evento) => {
     g.attr("transform", t);
 
 }
-const contenedorBrush = svg
-  .append("g")
 
-
-const brushed = (evento) => {
-    const seleccion = evento.selection;
-}
-const brush = d3
-  .brush()
-  .extent([
-    [0, 0],
-    [size.width, size.height],
-  ])
-  .on("brush", brushed)
-
-
-//  contenedorBrush.call(brush)
-  
 const zoom = d3.zoom()
 .extent([[0, 0], [size.width, size.height]])
 .translateExtent([[0, 0], [size.width, size.height]])
