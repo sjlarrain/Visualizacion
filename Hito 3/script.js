@@ -5,7 +5,7 @@ const size = {
 
 const svg = d3.selectAll(".container")
               .append("svg")
-              .attr("class", 'svg')
+              .attr("class", 'svg1')
               .attr("width", size.width)
               .attr("height", size.height);
 
@@ -32,6 +32,13 @@ const interpreter = (d) => {
         IND_DEP_VE: parseFloat(d.IND_DEP_VE)
     }
 };
+
+const detalle = d3.selectAll(".container")
+                .append("svg")
+                .attr("class", 'svg2')
+                .attr("width", size.width)
+                .attr("height", size.height);
+ 
 d3.csv("censo.csv", interpreter).then((datos) =>{
     const maxDependencia = d3.max(datos, (d) => d.INDICE_DEP)
     const promedio = d3.mean(datos, (d) => d.INDICE_DEP)
@@ -42,11 +49,10 @@ d3.csv("censo.csv", interpreter).then((datos) =>{
 
 
 
-const valor = (dato1, dato2, datos) =>{ 
+const valor = (datoId, datos) =>{ 
     for (let i=0; i<datos.length;i++){
         let dato = datos[i];
-    
-        if (dato1.toUpperCase() == dato.NOM_COMUNA && dato2 == dato.ID){
+        if (datoId == dato.ID){
             return Escala(dato.INDICE_DEP)
         } 
     }
@@ -63,12 +69,26 @@ d3.json("comunas.geojson").then((datos) => {
     .enter()
         .append("path")
         .attr("d", caminoGeo)
-        .attr("class", "geopath")
-        .attr("fill", (d)=> valor(d.properties.comuna,d.properties.id, info))
+        .attr("class", (d)=>d.properties.id)
+        .attr("fill", (d) => valor(d.properties.id, info))
         .attr("opacity", 0.3)
-        
+        .on("mouseover", mouseover)
+        .on("mouseout", mouseout)
+
+        function mouseover() {
+            console.log(this)
+            d3.select(this).attr("fill", "green");
+          }
+        function mouseout() {
+            const clase = this.className.baseVal
+            console.log(clase)
+            d3.select(this).attr("fill", valor(clase, info))
+        }
+    })
 })
-})
+
+
+                    
 const driverZoom = (evento) => {
     const t = evento.transform; 
     g.attr("transform", t);
@@ -76,11 +96,10 @@ const driverZoom = (evento) => {
 }
 const contenedorBrush = svg
   .append("g")
-//   .attr("transform", `translate(${margin.left} ${margin.top})`);
+
 
 const brushed = (evento) => {
     const seleccion = evento.selection;
-    console.log(seleccion);
 }
 const brush = d3
   .brush()
@@ -91,10 +110,7 @@ const brush = d3
   .on("brush", brushed)
 
 
-contenedorBrush.call(brush).call(brush.move, [
-    [100, 100],
-    [200, 200],
-  ]);
+//  contenedorBrush.call(brush)
   
 const zoom = d3.zoom()
 .extent([[0, 0], [size.width, size.height]])
