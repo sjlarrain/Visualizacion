@@ -23,14 +23,17 @@ const size = {
     width: 400,
     height:400
 };
-
+const margin = {top: 10, bottom: 10, left: 10, right: 10}
 const svg = d3.selectAll(".container")
               .append("svg")
               .attr("class", 'svg1')
               .attr("width", size.width)
-              .attr("height", size.height);
+              .attr("height", size.height)
+              .style("border", "1px solid black");
 
 const g = svg.append("g")
+                .attr("width", size.width - margin.left -margin.right)
+              .attr("height", size.height - margin.top - margin.bottom)
 
 
 const detalle = d3.selectAll(".container")
@@ -40,36 +43,45 @@ const detalle = d3.selectAll(".container")
                 .attr("height", size.height);
 
 const grafico = (datos) => {
-    const labels = ['% Hombres', '% Mujeres', 'Ind Dependencia', '% Vivienda Particular', '% Vivienda Colectiva']
+    const labels = ['% Hombres', '% Mujeres', '% Dep', '% Viv.Part.', '% Viv.Col.']
+    const g = detalle.append("g")
+    const margin = {top: 30, bottom: 30, left: 30, right: 30}
+    const height = size.height - margin.top - margin.bottom
+    const width = size.width -margin.left - margin.right
+    
+    g.attr("transform", `translate(${margin.left} ${margin.right})`)
     const maxValor = (datos) => {
         const valor = d3.max(datos)
         if (valor > 100){
             return valor
         } else { return 100}
     }
+    const Escala = d3.scaleSequential()
+                    .interpolator(d3.interpolatePlasma) 
+                    .domain([0, maxValor])
 
-    const x = d3.scaleBand().range([0, size.width - 25]).domain(labels).padding(0.1)
-    const y = d3.scaleLinear().range([size.height - 25, 0]). domain([0, maxValor(datos)])
-    detalle.append("g")
+    const x = d3.scaleBand().range([0, width]).domain(labels).padding(0.1)
+    const y = d3.scaleLinear().range([height, 0]). domain([0, maxValor(datos)])
+    g.append("g")
             .attr("class", "axisX")
-            .attr('transform', `translate(25 ${size.height - 25})`)
+            .attr('transform', `translate(0 ${height})`)
             .call(d3.axisBottom(x))
     
-    detalle.append("g")
-            .attr('transform', `translate(25 0)`)
+    g.append("g")
+            .attr('transform', `translate(0 0)`)
             .attr("class", 'axisY')
             .call(d3.axisLeft(y))
     
-    detalle.selectAll(".bar")
+    g.selectAll(".bar")
             .data(datos)
             .enter()
             .append("rect")
             .attr('class', 'bar')
-            .attr("x", (_, i) => x(labels[i]) + 25)
+            .attr("x", (_, i) => x(labels[i]))
             .attr("y", (d) => y(d))
             .attr("width", x.bandwidth())
-            .attr("height", (d) => size.height - y(d) -25)
-            .style("fill", 'green')
+            .attr("height", (d) => height - y(d))
+            .style("fill", '#FF007F' )
             
 }
 
@@ -95,7 +107,7 @@ d3.csv("censo.csv", interpreter).then((datos) =>{
     const promedio = d3.mean(datos, (d) => d.TOTAL_PERS)
     const info = datos
     const Escala = d3.scaleSequential()
-                    .interpolator(d3.interpolateMagma) 
+                    .interpolator(d3.interpolatePlasma) 
                     .domain([0, MaxTOTAL_PERS])
 
 
@@ -114,7 +126,7 @@ const valor = (datoId, datos) =>{
 d3.json("comunas.geojson").then((datos) => {
     const proyeccion = d3.geoWinkel3().fitSize([size.width, size.height], datos);
     const caminoGeo = d3.geoPath().projection(proyeccion);
-    
+    grafico([])
     g.selectAll("path")
     .data(datos.features)
     .enter()
