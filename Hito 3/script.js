@@ -40,7 +40,20 @@ const detalle = d3.selectAll(".container")
                 .append("svg")
                 .attr("class", 'svg2')
                 .attr("width", size.width)
-                .attr("height", size.height);
+                .attr("height", size.height)
+                .style("border", "1px solid black");
+                
+const informacion = d3.selectAll(".informacion")
+                .append("svg")
+                .attr("class", 'svg3')
+                .attr("width", size.width * 2)
+                .attr("height", size.height / 2)
+                .style("border", "1px solid black")
+
+const cuadro = informacion.append("g")
+                            .attr("width", size.width * 2 - margin.left -margin.right)
+                            .attr("height", size.height / 2 - margin.top - margin.bottom)
+
 
 const grafico = (datos) => {
     const labels = ['% Hombres', '% Mujeres', '% Dep', '% Viv.Part.', '% Viv.Col.']
@@ -85,21 +98,55 @@ const grafico = (datos) => {
             
 }
 
-const obtenerInfo = (clase, datos) => {
-    for (let i=0; i<datos.length;i++){
+const buscador = (clase, datos) => {
+    for (let i=0; i<datos.length;i++) {
         let dato = datos[i];
-        if (clase == dato.ID){
-            const porHombre = dato.HOMBRES / dato.TOTAL_PERS * 100
-            const porMujer = 100 - porHombre
-            const dependencia = dato.INDICE_DEP
-            const particular = dato.PARTICULAR / dato.TOTAL_VIVI * 100
-            const colectiva = 100 - particular
-            console.log([porHombre, porMujer, dependencia, particular, colectiva])
-            return [porHombre, porMujer, dependencia, particular, colectiva]
+        if (clase == dato.ID) {
+            return dato
         } 
     }
+    return 0
+}
+const obtenerInfo = (dato) => {
+    if (dato.ID != 0){
+        const porHombre = dato.HOMBRES / dato.TOTAL_PERS * 100
+        const porMujer = 100 - porHombre
+        const dependencia = dato.INDICE_DEP
+        const particular = dato.PARTICULAR / dato.TOTAL_VIVI * 100
+        const colectiva = 100 - particular
+        console.log([porHombre, porMujer, dependencia, particular, colectiva])
+        return [porHombre, porMujer, dependencia, particular, colectiva]
+    } 
+
     return [0, 0, 0, 0, 0]
 }
+
+const obtenerNombres = (dato) => {
+    if (dato.ID != 0){
+        const region = dato.NOM_REGION
+        const comuna = dato.NOM_COMUNA
+        const provincia = dato.NOM_PROVIN
+        const habitantes = dato.TOTAL_PERS
+        const viviendas = dato.TOTAL_VIVI
+        return [region, provincia, comuna, habitantes, viviendas]
+    } else{
+        return ['N/D', 'N/D', 'N/D', 'N/D', 'N/D']
+    }}
+
+const resumen =(datos) => {
+    const ubicaciones =  [[100,50], [100,100], [100,150], [500,75], [500,120]]
+    const elemento = ["REGION", 'PROVINCIA', 'COMUNA', 'TOTAL PERSONAS', 'TOTAL VIVIENDAS']
+    cuadro.selectAll('.info')
+        .data(datos)
+        .enter()
+        .append("text")
+        .text((d, i) => `${elemento[i]}: ${d}`)
+        .attr("x", (_, i) => ubicaciones[i][0])
+        .attr("y", (_, i) => ubicaciones[i][1])
+        .attr("class", "info")
+
+}
+
 
  
 d3.csv("censo.csv", interpreter).then((datos) =>{
@@ -142,14 +189,18 @@ d3.json("comunas.geojson").then((datos) => {
 
         function mouseover() {
             const clase = this.className.baseVal
-            const datos_comuna = obtenerInfo(clase, info)
+            const identificador = buscador(clase, info)
+            const datos_comuna = obtenerInfo(identificador)
+            const texto_comunas = obtenerNombres(identificador)
+            resumen(texto_comunas)
             grafico(datos_comuna)
             d3.select(this).attr("fill", "green");
-
           }
         function mouseout() {
             const clase = this.className.baseVal
             detalle.selectAll(".bar")
+                    .remove()
+            cuadro.selectAll(".info")
                     .remove()
             d3.select(this).attr("fill", valor(clase, info))
         }
