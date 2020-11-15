@@ -54,6 +54,32 @@ const cuadro = informacion.append("g")
                             .attr("width", size.width * 2 - margin.left -margin.right)
                             .attr("height", size.height / 2 - margin.top - margin.bottom)
 
+const isla_pascua = d3.selectAll(".islas")
+                    .append("svg")
+                    .attr("class", 'svg4')
+                    .attr("width", size.width)
+                    .attr("height", size.height / 2)
+                    .style("border", "1px solid black");
+
+
+
+const h = isla_pascua.append("g")
+        .attr("width", size.width - margin.left -margin.right)
+        .attr("height", size.height - margin.top - margin.bottom)
+
+const juan_fernandez = d3.selectAll(".islas")
+        .append("svg")
+        .attr("class", 'svg4')
+        .attr("width", size.width)
+        .attr("height", size.height / 2)
+        .style("border", "1px solid black");
+
+
+
+const j = juan_fernandez.append("g")
+    .attr("width", size.width - margin.left -margin.right)
+    .attr("height", size.height - margin.top - margin.bottom)
+
 
 const grafico = (datos) => {
     const labels = ['% Hombres', '% Mujeres', '% Dep', '% Viv.Part.', '% Viv.Col.']
@@ -196,6 +222,76 @@ d3.json("comunas.geojson").then((datos) => {
             grafico(datos_comuna)
             d3.select(this).attr("fill", "green");
           }
+        function mouseout() {
+            const clase = this.className.baseVal
+            detalle.selectAll(".bar")
+                    .remove()
+            cuadro.selectAll(".info")
+                    .remove()
+            d3.select(this).attr("fill", valor(clase, info))
+        }
+    })
+d3.json("isla_pascua.geojson").then((datos) => {
+    const proyeccion = d3.geoWinkel3().fitSize([size.width, size.height / 2], datos);
+    const caminoGeo = d3.geoPath().projection(proyeccion);
+    grafico([])
+    h.selectAll("path")
+    .data(datos.features)
+    .enter()
+        .append("path")
+        .attr("d", caminoGeo)
+        .attr("class", (d)=>d.properties.id)
+        .attr("fill", (d) => valor(d.properties.id, info))
+        .attr("opacity", 0.3)
+        .attr("stroke", "black")
+        .attr("stroke-width", '0.03')
+        .on("mouseover", mouseover)
+        .on("mouseout", mouseout)
+
+        function mouseover() {
+            const clase = this.className.baseVal
+            const identificador = buscador(clase, info)
+            const datos_comuna = obtenerInfo(identificador)
+            const texto_comunas = obtenerNombres(identificador)
+            resumen(texto_comunas)
+            grafico(datos_comuna)
+            d3.select(this).attr("fill", "green");
+            }
+        function mouseout() {
+            const clase = this.className.baseVal
+            detalle.selectAll(".bar")
+                    .remove()
+            cuadro.selectAll(".info")
+                    .remove()
+            d3.select(this).attr("fill", valor(clase, info))
+        }
+    })
+d3.json("juan_fernandez.geojson").then((datos) => {
+    const proyeccion = d3.geoWinkel3().fitSize([size.width, size.height / 2], datos);
+    const caminoGeo = d3.geoPath().projection(proyeccion);
+    grafico([])
+    j.selectAll("path")
+    .data(datos.features)
+    .enter()
+        .append("path")
+        .attr("d", caminoGeo)
+        .attr("class", (d)=>d.properties.id)
+        .attr("fill", (d) => valor(d.properties.id, info))
+        .attr("opacity", 0.3)
+        .attr("stroke", "black")
+        .attr("stroke-width", '0.03')
+        .on("mouseover", mouseover)
+        .on("mouseout", mouseout)
+
+        function mouseover() {
+            const clase = this.className.baseVal
+            const identificador = buscador(clase, info)
+            const datos_comuna = obtenerInfo(identificador)
+            const texto_comunas = obtenerNombres(identificador)
+            resumen(texto_comunas)
+            grafico(datos_comuna)
+            d3.select(this).attr("fill", "green");
+            }
         function mouseout() {
             const clase = this.className.baseVal
             detalle.selectAll(".bar")
