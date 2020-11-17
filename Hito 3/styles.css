@@ -7,7 +7,15 @@
     display: grid;
     grid-template-rows: 1fr, 1fr;
 }
+.isla_pascua .juan_fernandez{
+    width: 200px;
+    height: 200px;
+}
 
+.islas {
+    display:grid;
+    grid-template-rows: auto;
+}
 .container {
     width: 400px;
     height: 200px;

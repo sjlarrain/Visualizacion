@@ -28,8 +28,8 @@ const size_mapa = {
     height:400
 };
 const size_isla = {
-    width: 200,
-    height:200
+    width: 180,
+    height:180
 };
 
 const margin = {top: 10, bottom: 10, left: 10, right: 10}
