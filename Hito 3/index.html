@@ -24,6 +24,54 @@
         <div class="grafico"></div>
         <div class='informacion'></div>
     </div>
+    <div class="respuestas">
+        <div>
+            <div class="subtitulo"> Atributo y Color</div>
+            <div class="respuesta">
+                <p> Se decidio representar en el mapa el atributo de la cantidad total de personas a través de una escala de colores. La escala de coloeres
+                ocupada fue una de <b>d3</b> de nombre plasma. Entre menos personas habían en un lugar mas morado, sin embargo entre más popular el lugar será
+                de color más amarillo.</p>
+                <p>Se decidio ocupar esta escala de colores para poder identificar cuales son las comunas con una mayor cantidad de gente que podrían proveer informacion 
+                    relevante. 
+                </p>            
+            </div>
+        </div>
+        <div>
+            <div class="subtitulo">Proyección utilizada</div>
+            <div class="respuesta">
+                <p>La proyeccion cartográfica utilizada fue <b>geoWinkle3</b>. La razón para ocupar esto fue la gran extensión que tiene Chile, lo que lleva a que ocupar <b>geoMercator</b>
+                 se deforme y pierda precisión nuestro mapa. La proyección utilizada evitaba este problema dando una mayor fidelidad en el área y la precisión del mapa.</p>
+            </div>
+        </div>
+        <div>
+            <div class="subtitulo">Forma de realizar Zoom</div>
+            <div class="respuesta"></div>
+        </div>
+        <div>
+            <div class="subtitulo">Idiom Comuna</div>
+            <div class="respuesta">
+                <p>La forma de la interacción entre comunas es a través de cursor del <i>mouse</i> donde al sobrepasar por encima, cambia al color verde la comuna por la 
+                que esta posado. Se toma la decisión de ocupar esta sobre <i>click</i> debido a que queremos que la interacción sea rapida y de facil movimiento. Esta pensado 
+                para una persona que quiera descubrir e informarse sobre las distintas comunas. No esta la intención que busquen una comuna en particular.</p>
+            </div>
+        </div>
+        <div>
+            <div class="subtitulo">Idiom segunda vista</div>
+            <div class="respuesta">
+                <p>Se seleccionaron datos proveidos por en el censo y se hicieron derivaciones. Estas consistieron en porcentajes de hombres y mujeres en una zona, el nivel de dependencia
+                    en la comuna y la cantidad de viviendas particulares. La forma de la representación de estos datos es a través de un <i>barplot</i> que nos permite ver de forma clara
+                    los porcentajes. Además se dejo el eje Y de forma fiajada para poder ver de forma clara las magnitudes. 
+                </p>
+            </div>
+        </div>
+        <div>
+            <div class="subtitulo">Organizacion Espacial</div>
+            <div class="respuesta">
+                <p>Se decidio organizar una grilla donde en un segemento colocamos los mapas, dividiendo esto en Chile continental y las Islas. 
+                Posteriormente se presento en el cuadro resument que da la información de la comuna como su nombre, provincia a la que pertenece. 
+            </p></div>
+        </div>
+    </div>
 </body>
 <script src="script.js"></script>
 </html>
