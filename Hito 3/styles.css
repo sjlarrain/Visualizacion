@@ -1,13 +1,14 @@
 .mandamas{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    margin-left: 100px;
 }
 .visualizaciones {
     display: grid;
-    grid-template-rows: auto;
+    grid-template-rows: 1fr, 1fr;
 }
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr ;
 
+.container {
+    width: 400px;
+    height: 200px;
 }

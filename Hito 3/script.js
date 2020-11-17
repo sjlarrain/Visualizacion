@@ -23,17 +23,28 @@ const size = {
     width: 400,
     height:400
 };
+const size_mapa = {
+    width: 200,
+    height:400
+};
+const size_isla = {
+    width: 200,
+    height:200
+};
+
 const margin = {top: 10, bottom: 10, left: 10, right: 10}
 const svg = d3.selectAll(".container")
               .append("svg")
               .attr("class", 'svg1')
-              .attr("width", size.width)
-              .attr("height", size.height)
-              .style("border", "1px solid black");
+              .attr("width", size_mapa.width)
+              .attr("height", size_mapa.height)
+              .style("border", "1px solid black")
+              .attr('transform', 'translate(100 -100) rotate(-90)')
 
 const g = svg.append("g")
-                .attr("width", size.width - margin.left -margin.right)
-              .attr("height", size.height - margin.top - margin.bottom)
+                .attr("width", size_mapa.width - margin.left -margin.right)
+              .attr("height", size_mapa.height - margin.top - margin.bottom)
+              
 
 
 const detalle = d3.selectAll(".grafico")
@@ -57,28 +68,28 @@ const cuadro = informacion.append("g")
 const isla_pascua = d3.selectAll(".isla_pascua")
                     .append("svg")
                     .attr("class", 'svg4')
-                    .attr("width", size.width)
-                    .attr("height", size.height / 2)
+                    .attr("width", size_isla.width)
+                    .attr("height", size_isla.height / 2)
                     .style("border", "1px solid black");
 
 
 
 const h = isla_pascua.append("g")
-        .attr("width", size.width - margin.left -margin.right)
-        .attr("height", size.height - margin.top - margin.bottom)
+        .attr("width", size_isla.width - margin.left -margin.right)
+        .attr("height", size_isla.height - margin.top - margin.bottom)
 
 const juan_fernandez = d3.selectAll(".juan_fernandez")
         .append("svg")
         .attr("class", 'svg4')
-        .attr("width", size.width)
-        .attr("height", size.height / 2)
+        .attr("width", size_isla.width)
+        .attr("height", size_isla.height / 2)
         .style("border", "1px solid black");
 
 
 
 const j = juan_fernandez.append("g")
-    .attr("width", size.width - margin.left -margin.right)
-    .attr("height", size.height - margin.top - margin.bottom)
+    .attr("width", size_isla.width - margin.left -margin.right)
+    .attr("height", size_isla.height - margin.top - margin.bottom)
 
 
 const grafico = (datos) => {
@@ -160,7 +171,7 @@ const obtenerNombres = (dato) => {
     }}
 
 const resumen =(datos) => {
-    const ubicaciones =  [[10,50], [10,100], [10,150], [10,75], [10,125]]
+    const ubicaciones =  [[10,50], [10,100], [10,150], [10,75], [10,120]]
     const elemento = ["REGION", 'PROVINCIA', 'COMUNA', 'TOTAL PERSONAS', 'TOTAL VIVIENDAS']
     cuadro.selectAll('.info')
         .data(datos)
@@ -197,7 +208,7 @@ const valor = (datoId, datos) =>{
 }
 
 d3.json("comunas.geojson").then((datos) => {
-    const proyeccion = d3.geoWinkel3().fitSize([size.width, size.height], datos);
+    const proyeccion = d3.geoWinkel3().fitSize([size_mapa.width, size_mapa.height], datos);
     const caminoGeo = d3.geoPath().projection(proyeccion);
     grafico([])
     g.selectAll("path")
@@ -232,7 +243,7 @@ d3.json("comunas.geojson").then((datos) => {
         }
     })
 d3.json("isla_pascua.geojson").then((datos) => {
-    const proyeccion = d3.geoWinkel3().fitSize([size.width, size.height / 2], datos);
+    const proyeccion = d3.geoWinkel3().fitSize([size_isla.width, size_isla.height / 2], datos);
     const caminoGeo = d3.geoPath().projection(proyeccion);
     grafico([])
     h.selectAll("path")
@@ -267,7 +278,7 @@ d3.json("isla_pascua.geojson").then((datos) => {
         }
     })
 d3.json("juan_fernandez.geojson").then((datos) => {
-    const proyeccion = d3.geoWinkel3().fitSize([size.width, size.height / 2], datos);
+    const proyeccion = d3.geoWinkel3().fitSize([size_isla.width, size_isla.height / 2], datos);
     const caminoGeo = d3.geoPath().projection(proyeccion);
     grafico([])
     j.selectAll("path")
