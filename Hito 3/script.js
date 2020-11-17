@@ -28,8 +28,8 @@ const size_mapa = {
     height:400
 };
 const size_isla = {
-    width: 180,
-    height:180
+    width: 200,
+    height:200
 };
 
 const margin = {top: 10, bottom: 10, left: 10, right: 10}
@@ -44,6 +44,7 @@ const svg = d3.selectAll(".container")
 const g = svg.append("g")
                 .attr("width", size_mapa.width - margin.left -margin.right)
               .attr("height", size_mapa.height - margin.top - margin.bottom)
+              
               
 
 

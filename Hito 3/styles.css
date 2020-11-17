@@ -14,7 +14,7 @@
 
 .islas {
     display:grid;
-    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
 }
 .container {
     width: 400px;
