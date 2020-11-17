@@ -1,7 +1,10 @@
-.visualizaciones {
+.mandamas{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-
+}
+.visualizaciones {
+    display: grid;
+    grid-template-rows: auto;
 }
 .container {
     display: grid;

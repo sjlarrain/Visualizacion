@@ -36,7 +36,7 @@ const g = svg.append("g")
               .attr("height", size.height - margin.top - margin.bottom)
 
 
-const detalle = d3.selectAll(".container")
+const detalle = d3.selectAll(".grafico")
                 .append("svg")
                 .attr("class", 'svg2')
                 .attr("width", size.width)
@@ -46,15 +46,15 @@ const detalle = d3.selectAll(".container")
 const informacion = d3.selectAll(".informacion")
                 .append("svg")
                 .attr("class", 'svg3')
-                .attr("width", size.width * 2)
-                .attr("height", size.height / 2)
+                .attr("width", size.width)
+                .attr("height", size.height)
                 .style("border", "1px solid black")
 
 const cuadro = informacion.append("g")
                             .attr("width", size.width * 2 - margin.left -margin.right)
                             .attr("height", size.height / 2 - margin.top - margin.bottom)
 
-const isla_pascua = d3.selectAll(".islas")
+const isla_pascua = d3.selectAll(".isla_pascua")
                     .append("svg")
                     .attr("class", 'svg4')
                     .attr("width", size.width)
@@ -67,7 +67,7 @@ const h = isla_pascua.append("g")
         .attr("width", size.width - margin.left -margin.right)
         .attr("height", size.height - margin.top - margin.bottom)
 
-const juan_fernandez = d3.selectAll(".islas")
+const juan_fernandez = d3.selectAll(".juan_fernandez")
         .append("svg")
         .attr("class", 'svg4')
         .attr("width", size.width)
@@ -160,7 +160,7 @@ const obtenerNombres = (dato) => {
     }}
 
 const resumen =(datos) => {
-    const ubicaciones =  [[100,50], [100,100], [100,150], [500,75], [500,120]]
+    const ubicaciones =  [[10,50], [10,100], [10,150], [10,75], [10,125]]
     const elemento = ["REGION", 'PROVINCIA', 'COMUNA', 'TOTAL PERSONAS', 'TOTAL VIVIENDAS']
     cuadro.selectAll('.info')
         .data(datos)
