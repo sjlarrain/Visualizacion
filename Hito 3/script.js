@@ -66,6 +66,7 @@ const informacion = d3.selectAll(".informacion")
 const cuadro = informacion.append("g")
                             .attr("width", size.width * 2 - margin.left -margin.right)
                             .attr("height", size.height / 2 - margin.top - margin.bottom)
+                            .style("text-align", "justify")
 
 const isla_pascua = d3.selectAll(".isla_pascua")
                     .append("svg")
