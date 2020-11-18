@@ -1,8 +1,46 @@
 body {
     margin-left:100px;
     margin-right:100px;
+    font-family: Helvetica;
 }
 
+.titulo{
+    text-align: center;
+    font-size: 1cm;
+    margin-bottom: 10px;
+
+}
+
+.contenido {
+    margin-bottom: 10px;
+}
+.respuestas{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.subtitulo{
+    text-align: center;
+    font-size: 0.5cm;
+    font-style: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.respuesta{
+    text-align: justify;
+    font-size: 0.4cm;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.subtitle{
+    text-align: center;
+    font-size: 0.7cm;
+    font-style: bold;
+}
 
 .mandamas{
     display: grid;
@@ -11,6 +49,8 @@ body {
 .visualizaciones {
     display: grid;
     grid-template-rows: 1fr, 1fr;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .isla_pascua .juan_fernandez{
     width: 200px;
