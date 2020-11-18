@@ -1,3 +1,4 @@
+
 const interpreter = (d) => {
     return {ID: parseInt(d.ID),
         REGION: parseInt(d.REGION),
@@ -186,17 +187,56 @@ const resumen =(datos) => {
 }
 
 
- 
+
+
 d3.csv("censo.csv", interpreter).then((datos) =>{
     const MaxTOTAL_PERS = d3.max(datos, (d) => d.TOTAL_PERS)
     const promedio = d3.mean(datos, (d) => d.TOTAL_PERS)
     const info = datos
     const Escala = d3.scaleSequential()
-                    .interpolator(d3.interpolatePlasma) 
-                    .domain([0, MaxTOTAL_PERS])
+    .interpolator(d3.interpolatePlasma) 
+    .domain([0, MaxTOTAL_PERS])
+    
+    const leyenda = (max_valor) => {
+        const valores = [0, max_valor*1/5, max_valor*2/5, max_valor*3/5, max_valor*4/5, max_valor ]
+        const location = [0,40,80,120,160,200,240]
+        const location2 = [[10,25],[150,13],[325,25],[325, 40]]
+        const hvg = d3.selectAll(".escala")
+                      .append("svg")
+                      .attr("class", "svg5")
+                      .attr("width", 400)
+                      .attr("height", 50)
+                      .style("border", "1px solid black");
+        k = hvg.append("g")
+                .attr("class", "escalita")
+    
+        k.selectAll(".colors")
+            .data(valores)
+            .enter()
+            .append("rect")
+            .attr("x", (_,i)=> location[i] + 80)
+            .attr("y", 15)
+            .attr("fill", (d)=>Escala(d))
+            .attr("width", 40)
+            .attr("height", 25)
+            .attr("border", "solid black 1px")
+            .attr("opacity", 0.7)
+        
+            const miles =max_valor/1000000
+        k.selectAll("text")
+        .data(["0 pobl.", "Escala de Q poblacion", `${miles.toFixed(2)}M `, "pobl."])
+        .enter()
+        .append('text')
+        .text((d)=> d)
+        .attr("x", (_,i)=>location2[i][0])
+        .attr("y", (_,i)=>location2[i][1])
+    
+    }
+
+    leyenda(MaxTOTAL_PERS)
 
 
-
+    
 const valor = (datoId, datos) =>{ 
     for (let i=0; i<datos.length;i++){
         let dato = datos[i];
@@ -219,7 +259,7 @@ d3.json("comunas.geojson").then((datos) => {
         .attr("d", caminoGeo)
         .attr("class", (d)=>d.properties.id)
         .attr("fill", (d) => valor(d.properties.id, info))
-        .attr("opacity", 0.3)
+        .attr("opacity", 0.7)
         .attr("stroke", "black")
         .attr("stroke-width", '0.03')
         .on("mouseover", mouseover)
@@ -243,6 +283,7 @@ d3.json("comunas.geojson").then((datos) => {
             d3.select(this).attr("fill", valor(clase, info))
         }
     })
+
 d3.json("isla_pascua.geojson").then((datos) => {
     const proyeccion = d3.geoWinkel3().fitSize([size_isla.width, size_isla.height / 2], datos);
     const caminoGeo = d3.geoPath().projection(proyeccion);
@@ -254,7 +295,7 @@ d3.json("isla_pascua.geojson").then((datos) => {
         .attr("d", caminoGeo)
         .attr("class", (d)=>d.properties.id)
         .attr("fill", (d) => valor(d.properties.id, info))
-        .attr("opacity", 0.3)
+        .attr("opacity", 0.7)
         .attr("stroke", "black")
         .attr("stroke-width", '0.03')
         .on("mouseover", mouseover)
@@ -278,6 +319,7 @@ d3.json("isla_pascua.geojson").then((datos) => {
             d3.select(this).attr("fill", valor(clase, info))
         }
     })
+
 d3.json("juan_fernandez.geojson").then((datos) => {
     const proyeccion = d3.geoWinkel3().fitSize([size_isla.width, size_isla.height / 2], datos);
     const caminoGeo = d3.geoPath().projection(proyeccion);
@@ -289,7 +331,7 @@ d3.json("juan_fernandez.geojson").then((datos) => {
         .attr("d", caminoGeo)
         .attr("class", (d)=>d.properties.id)
         .attr("fill", (d) => valor(d.properties.id, info))
-        .attr("opacity", 0.3)
+        .attr("opacity", 0.7)
         .attr("stroke", "black")
         .attr("stroke-width", '0.03')
         .on("mouseover", mouseover)
