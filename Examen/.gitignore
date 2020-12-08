@@ -1,1 +1,6 @@
+.ipynb_checkpoints/
+csv_teams/
 scriptb.js
+*.ipynb
+!json_locations/usa.geojson
+!csv_locations/*.csv

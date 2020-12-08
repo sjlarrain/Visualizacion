@@ -1,0 +1,31 @@
+ABBREVIATION,NAME,CITY,CONFERENCE,DIVISION,longitude,latitude
+ARI,Arizona Diamondbacks,Phoenix,National,West,-112.0740373,33.4483771
+ATL,Atlanta Braves,Atlanta,National,East,-84.3879824,33.7489954
+BAL,Baltimore Orioles,Baltimore,American,East,-76.6121893,39.2903848
+BOS,Boston Red Sox,Boston,American,East,-71.0588801,42.3600825
+CHC,Chicago Cubs,Chicago,National,Central,-87.6297982,41.8781136
+CHW,Chicago White Sox,Chicago,American,Central,-87.6297982,41.8781136
+CIN,Cincinnati Reds,Cincinnati,National,Central,-84.5120196,39.1031182
+CLE,Cleveland Indians,Cleveland,American,Central,-84.8766115,35.1595182
+COL,Colorado Rockies,Denver,National,West,-104.990251,39.7392358
+DET,Detroit Tigers,Detroit,American,Central,-83.0457538,42.331427
+HOU,Houston Astros,Houston,American,West,-95.3698028,29.7604267
+KCR,Kansas City Royals,Kansas City,American,Central,-94.6274636,39.114053
+LAA,Los Angeles Angels of Anaheim,Los Angeles,American,West,-118.2436849,34.0522342
+LAD,Los Angeles Dodgers,Los Angeles,National,West,-118.2436849,34.0522342
+FLA,Miami Marlins,Miami,National,East,-80.1917902,25.7616798
+MIL,Milwaukee Brewers,Milwaukee,National,Central,-87.9064736,43.0389025
+MIN,Minnesota Twins,Minneapolis,American,Central,-93.2650108,44.977753
+NYM,New York Mets,New York,National,East,-74.0059413,40.7127837
+NYY,New York Yankees,New York,American,East,-74.0059413,40.7127837
+OAK,Oakland Athletics,Oakland,American,West,-122.2711137,37.8043637
+PHI,Philadelphia Phillies,Philadelphia,National,East,-75.1652215,39.9525839
+PIT,Pittsburgh Pirates,Pittsburgh,National,Central,-79.9958864,40.4406248
+SDP,San Diego Padres,San Diego,National,West,-117.1610838,32.715738
+SFG,San Francisco Giants,San Francisco,National,West,-122.4194155,37.7749295
+SEA,Seattle Mariners,Seattle,American,West,-122.3320708,47.6062095
+STL,St Louis Cardinals,St. Louis,National,Central,-90.1994042,38.6270025
+TBR,Tampa Bay Rays,Tampa,American,East,-82.4571776,27.950575
+TEX,Texas Rangers,Dallas,American,West,-96.7969879,32.7766642
+TOR,Toronto Blue Jays,Toronto,American,East,-79.347015,43.65107
+WSN,Washington Nationals,Washington,National,East,-77.0368707,38.9071923
