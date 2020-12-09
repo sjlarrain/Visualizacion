@@ -138,6 +138,9 @@ function mouseout() {
     console.log(clase)
     d3.select(this).attr("r", 3);
 }
+
+
+
 // Jsons
 d3.json("json_locations/usa.geojson").then((datos) => {
     const proyeccion = d3.geoMercator().fitSize([size.width, size.height], datos);
@@ -146,20 +149,20 @@ d3.json("json_locations/usa.geojson").then((datos) => {
     g.selectAll("path")
     .data(datos.features)
     .enter()
-        .append("path")
+    .append("path")
         .attr("d", caminoGeo)
         .attr("class", (d) => d.properties.NAME)
         .attr("fill", "grey")
         .attr("opacity", 0.3)
         .attr("stroke", "grey")
         
-    d3.csv("csv_locations/mlb_teams_loc.csv", interpreter).then((datos)=>{
+        d3.csv("csv_locations/mlb_teams_loc.csv", interpreter).then((datos)=>{
         console.log(datos)
         mlb.selectAll("circle")
             .data(datos)
             .enter()
             .append("circle")
-            .attr("class", (d) => d.CITY)
+            .attr("class", (d) => `${d.CITY} MLB city`)
             .attr("cx", (d) => proyeccion([d.longitude, d.latitude])[0])
             .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
             .attr("r", 3)
@@ -173,7 +176,7 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             .data(datos)
             .enter()
             .append("circle")
-            .attr("class", (d) => d.CITY)
+            .attr("class", (d) =>`${d.CITY} NFL city`)
             .attr("cx", (d) => proyeccion([d.longitude, d.latitude])[0])
             .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
             .attr("r", 3)
@@ -181,14 +184,14 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             .attr("transform", "translate (6 0)")
             .on("mouseover", mouseover)
             .on("mouseout", mouseout)
-    })
+        })
     d3.csv("csv_locations/nba_teams_loc.csv", interpreter).then((datos)=>{
         console.log(datos)
         nba.selectAll("circle")
             .data(datos)
             .enter()
             .append("circle")
-            .attr("class", (d) => d.CITY)
+            .attr("class", (d) => `${d.CITY} NBA city`)
             .attr("cx", (d) => proyeccion([d.longitude, d.latitude])[0])
             .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
             .attr("r", 3)
@@ -196,13 +199,13 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             .attr("transform", "translate (-6 0)")
             .on("mouseover", mouseover)
             .on("mouseout", mouseout)
-    })
+        })
         
     
-    const driverZoom = (evento) => {
+        const driverZoom = (evento) => {
         const t = evento.transform; 
         h.attr("transform", t)
-
+        
 
     }
 
@@ -236,13 +239,13 @@ d3.csv("csv_teams/nfl_tree.csv").then((datos) => {
         .stratify()
         .id((d) => d.NAME)
         .parentId((d) => d.PARENT);
-
-const raiz = stratify(datos);
-treeBuilder(raiz, nflTree)
-
+        
+        const raiz = stratify(datos);
+        treeBuilder(raiz, nflTree)
+        
 })
 .catch((error) => {
-console.log(error);
+    console.log(error);
 });
 d3.csv("csv_teams/nba_tree.csv").then((datos) => {
     const stratify = d3
@@ -257,10 +260,24 @@ treeBuilder(raiz, nbaTree)
 .catch((error) => {
 console.log(error);
 });
-    
+
 d3.selectAll("circle")
     .on("mouseover", mouseover)
     .on("mouseout", mouseout)
 
  
-
+const iteration = () => {
+    for (let i = 0; i < targ_a.lenght; i++){
+        console.log(i)
+    }
+}
+const liga = document.getElementById("drop")
+liga.oninput = function() {
+    optionValue = this.value;
+    console.log(optionValue)
+    d3.selectAll(".city")
+        .style("visibility", "hidden")
+    d3.selectAll(`.${optionValue}`)
+        .style("visibility", "visible")
+    
+}
