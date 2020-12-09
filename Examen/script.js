@@ -7,7 +7,7 @@ const size = {
 
 const sizeInfo = {
     width: 300,
-    height:600
+    height:560
 };
 
 const sizeTree = {
@@ -189,6 +189,14 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             ).on("mouseover", (evento, d) => {
                 d3.select(evento.currentTarget)
                     .attr("r", 10);
+                    console.log(d.CITY)
+                p.append("svg:image")
+                    .attr("id", "imagen")
+                    .attr('x', 50)
+                    .attr('y', 200)
+                    .attr('width', 200)
+                    .attr('height', 200)
+                    .attr("xlink:href", `logos_mlb/${d.CITY}.gif`)
                 
                 p.append("text")
                     .attr("id", "tooltip")
@@ -209,6 +217,7 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             }).on("mouseout", (evento, d) => {
                 d3.select(evento.currentTarget)
                 .attr("r", 3)
+                d3. select("#imagen").remove()
                 d3.select("#tooltip").remove()
                 d3.select("#tooltip2").remove()
                 d3.select("#tooltip3").remove()
@@ -231,6 +240,14 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             ).on("mouseover", (evento, d) => {
                 d3.select(evento.currentTarget)
                     .attr("r", 10);
+                
+                p.append("svg:image")
+                    .attr("id", "imagen")
+                    .attr('x', 50)
+                    .attr('y', 200)
+                    .attr('width', 200)
+                    .attr('height', 200)
+                    .attr("xlink:href", `logos_nfl/${d.CITY}.gif`)
 
                 p.append("text")
                     .attr("id", "tooltip")
@@ -251,6 +268,7 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             }).on("mouseout", (evento, d) => {
                 d3.select(evento.currentTarget)
                 .attr("r", 3)
+                d3.select("#imagen").remove()
                 d3.select("#tooltip").remove()
                 d3.select("#tooltip2").remove()
                 d3.select("#tooltip3").remove()
@@ -273,6 +291,13 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             ).on("mouseover", (evento, d) => {
                 d3.select(evento.currentTarget)
                     .attr("r", 10);
+                p.append("svg:image")
+                    .attr("id", "imagen")
+                    .attr('x', 50)
+                    .attr('y', 200)
+                    .attr('width', 200)
+                    .attr('height', 200)
+                    .attr("xlink:href", `logos_nba/${d.CITY}.gif`)
 
                 p.append("text")
                     .attr("id", "tooltip")
@@ -293,6 +318,7 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             }).on("mouseout", (evento, d) => {
                 d3.select(evento.currentTarget)
                 .attr("r", 3)
+                d3.select("#imagen").remove()
                 d3.select("#tooltip").remove()
                 d3.select("#tooltip2").remove()
                 d3.select("#tooltip3").remove()

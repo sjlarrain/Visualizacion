@@ -4,3 +4,6 @@ scriptb.js
 *.ipynb
 !json_locations/usa.geojson
 !csv_locations/*.csv
+logos_mlb/
+logos_nfl/
+logos_nba/
