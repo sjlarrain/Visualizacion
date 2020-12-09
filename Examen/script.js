@@ -4,6 +4,12 @@ const size = {
     width: 800,
     height:600
 };
+
+const sizeInfo = {
+    width: 300,
+    height:600
+};
+
 const sizeTree = {
     width: 800,
     height:500
@@ -24,7 +30,16 @@ const svg = d3.selectAll(".usa")
               .attr("width", size.width)
               .attr("height", size.height)
               .style("border", "1px solid black");
+
+const svg1 = d3.selectAll(".Info")
+                .append("svg")
+                .attr("class", 'svg')
+                .attr("width", sizeInfo.width)
+                .attr("height", sizeInfo.height)
+                .style("border", "1px solid black")
 const h = svg.append("g")
+
+const p = svg1.append("g")
 const g = h.append("g")
 const nba = h.append("g")
 const nfl = h.append("g")
@@ -174,20 +189,21 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             ).on("mouseover", (evento, d) => {
                 d3.select(evento.currentTarget)
                     .attr("r", 10);
-                mlb.append("text")
+                
+                p.append("text")
                     .attr("id", "tooltip")
-                    .attr("x", 60)
-                    .attr("y", 470)
+                    .attr("x", 20)
+                    .attr("y", 60)
                     .text(`City: ${d.CITY}`);
-                mlb.append("text")
+                p.append("text")
                     .attr("id", "tooltip2")
-                    .attr("x", 60)
-                    .attr("y", 490)
+                    .attr("x", 20)
+                    .attr("y", 80)
                     .text(`Team: ${d.NAME}`);
-                mlb.append("text")
+                p.append("text")
                     .attr("id", "tooltip3")
-                    .attr("x", 60)
-                    .attr("y", 510)
+                    .attr("x", 20)
+                    .attr("y", 100)
                     .text("League: MLB")
 
             }).on("mouseout", (evento, d) => {
@@ -215,20 +231,21 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             ).on("mouseover", (evento, d) => {
                 d3.select(evento.currentTarget)
                     .attr("r", 10);
-                nfl.append("text")
+
+                p.append("text")
                     .attr("id", "tooltip")
-                    .attr("x", 60)
-                    .attr("y", 470)
+                    .attr("x", 20)
+                    .attr("y", 60)
                     .text(`City: ${d.CITY}`);
-                nfl.append("text")
+                p.append("text")
                     .attr("id", "tooltip2")
-                    .attr("x", 60)
-                    .attr("y", 490)
+                    .attr("x", 20)
+                    .attr("y", 80)
                     .text(`Team: ${d.NAME}`);
-                nfl.append("text")
+                p.append("text")
                     .attr("id", "tooltip3")
-                    .attr("x", 60)
-                    .attr("y", 510)
+                    .attr("x", 20)
+                    .attr("y", 100)
                     .text("League: NFL")
 
             }).on("mouseout", (evento, d) => {
@@ -256,20 +273,21 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             ).on("mouseover", (evento, d) => {
                 d3.select(evento.currentTarget)
                     .attr("r", 10);
-                nba.append("text")
+
+                p.append("text")
                     .attr("id", "tooltip")
-                    .attr("x", 60)
-                    .attr("y", 470)
+                    .attr("x", 20)
+                    .attr("y", 60)
                     .text(`City: ${d.CITY}`);
-                nba.append("text")
+                p.append("text")
                     .attr("id", "tooltip2")
-                    .attr("x", 60)
-                    .attr("y", 490)
+                    .attr("x", 20)
+                    .attr("y", 80)
                     .text(`Team: ${d.NAME}`);
-                nba.append("text")
+                p.append("text")
                     .attr("id", "tooltip3")
-                    .attr("x", 60)
-                    .attr("y", 510)
+                    .attr("x", 20)
+                    .attr("y", 100)
                     .text("League: NBA")
 
             }).on("mouseout", (evento, d) => {
@@ -341,16 +359,8 @@ treeBuilder(raiz, nbaTree)
 console.log(error);
 });
 
-d3.selectAll("circle")
-    .on("mouseover", mouseover)
-    .on("mouseout", mouseout)
 
- 
-const iteration = () => {
-    for (let i = 0; i < targ_a.lenght; i++){
-        console.log(i)
-    }
-}
+
 const liga = document.getElementById("drop")
 liga.oninput = function() {
     optionValue = this.value;

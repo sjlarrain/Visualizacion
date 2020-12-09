@@ -18,3 +18,9 @@ p {
     grid-template-columns: 1fr 1fr;
 }
 
+#drop {
+    margin: 5px;
+    margin-left: 10px;
+    width: 300px;
+    height: 30px;  
+}
