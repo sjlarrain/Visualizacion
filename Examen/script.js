@@ -30,7 +30,7 @@ const nba = h.append("g")
 const nfl = h.append("g")
 const mlb = h.append("g")
 
-const mlbTree_svg = d3.selectAll(".mlb_tree")
+const mlbTree_svg = d3.selectAll(".MLB_tree")
                     .append("svg")
                     .attr("class", 'svg')
                     .attr("width", sizeTree.width)
@@ -41,7 +41,7 @@ const mlbTree = mlbTree_svg.append("g")
                     .attr("width", sizeTree.width - margin.left - margin.right)
                     .attr("height", sizeTree.height - margin.top - margin.bottom)
 
-const nbaTree_svg = d3.selectAll(".nba_tree")
+const nbaTree_svg = d3.selectAll(".NBA_tree")
                     .append("svg")
                     .attr("class", 'svg')
                     .attr("width", sizeTree.width)
@@ -51,7 +51,7 @@ const nbaTree = nbaTree_svg.append("g")
                     .attr("width", sizeTree.width - margin.left - margin.right)
                     .attr("height", sizeTree.height - margin.top - margin.bottom)
 
-const nflTree_svg = d3.selectAll(".nfl_tree")
+const nflTree_svg = d3.selectAll(".NFL_tree")
                     .append("svg")
                     .attr("class", 'svg')
                     .attr("width", sizeTree.width)
@@ -127,9 +127,10 @@ const linksGenerator = d3
 
 }
 
-function mouseover() {
+function mouseover(evento) {
     const clase = this.className.baseVal
     console.log(clase)
+    console.log(evento.x,evento.y)
     d3.select(this)
         .attr("r", 10);
   }
@@ -160,45 +161,124 @@ d3.json("json_locations/usa.geojson").then((datos) => {
         console.log(datos)
         mlb.selectAll("circle")
             .data(datos)
-            .enter()
-            .append("circle")
-            .attr("class", (d) => `${d.CITY} MLB city`)
-            .attr("cx", (d) => proyeccion([d.longitude, d.latitude])[0])
-            .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
-            .attr("r", 3)
-            .attr("fill", "red")
-            .on("mouseover", mouseover)
-            .on("mouseout", mouseout)
+            .join(
+                (enter) =>
+                enter.append("circle")
+                .attr("class", (d) =>`${d.CITY} MLB city`)
+                .attr("cx", (d) => proyeccion([d.longitude, d.latitude])[0])
+                .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
+                .attr("r", 3)
+                .attr("fill", "red")
+                .attr("transform", "translate (0 0)"),
+                
+            ).on("mouseover", (evento, d) => {
+                d3.select(evento.currentTarget)
+                    .attr("r", 10);
+                mlb.append("text")
+                    .attr("id", "tooltip")
+                    .attr("x", 60)
+                    .attr("y", 470)
+                    .text(`City: ${d.CITY}`);
+                mlb.append("text")
+                    .attr("id", "tooltip2")
+                    .attr("x", 60)
+                    .attr("y", 490)
+                    .text(`Team: ${d.NAME}`);
+                mlb.append("text")
+                    .attr("id", "tooltip3")
+                    .attr("x", 60)
+                    .attr("y", 510)
+                    .text("League: MLB")
+
+            }).on("mouseout", (evento, d) => {
+                d3.select(evento.currentTarget)
+                .attr("r", 3)
+                d3.select("#tooltip").remove()
+                d3.select("#tooltip2").remove()
+                d3.select("#tooltip3").remove()
+            })
     })
     d3.csv("csv_locations/nfl_teams_loc.csv", interpreter).then((datos)=>{
         console.log(datos)
         nfl.selectAll("circle")
             .data(datos)
-            .enter()
-            .append("circle")
-            .attr("class", (d) =>`${d.CITY} NFL city`)
-            .attr("cx", (d) => proyeccion([d.longitude, d.latitude])[0])
-            .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
-            .attr("r", 3)
-            .attr("fill", "green")
-            .attr("transform", "translate (6 0)")
-            .on("mouseover", mouseover)
-            .on("mouseout", mouseout)
+            .join(
+                (enter) =>
+                enter.append("circle")
+                .attr("class", (d) =>`${d.CITY} NFL city`)
+                .attr("cx", (d) => proyeccion([d.longitude, d.latitude])[0])
+                .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
+                .attr("r", 3)
+                .attr("fill", "green")
+                .attr("transform", "translate (6 0)"),
+                
+            ).on("mouseover", (evento, d) => {
+                d3.select(evento.currentTarget)
+                    .attr("r", 10);
+                nfl.append("text")
+                    .attr("id", "tooltip")
+                    .attr("x", 60)
+                    .attr("y", 470)
+                    .text(`City: ${d.CITY}`);
+                nfl.append("text")
+                    .attr("id", "tooltip2")
+                    .attr("x", 60)
+                    .attr("y", 490)
+                    .text(`Team: ${d.NAME}`);
+                nfl.append("text")
+                    .attr("id", "tooltip3")
+                    .attr("x", 60)
+                    .attr("y", 510)
+                    .text("League: NFL")
+
+            }).on("mouseout", (evento, d) => {
+                d3.select(evento.currentTarget)
+                .attr("r", 3)
+                d3.select("#tooltip").remove()
+                d3.select("#tooltip2").remove()
+                d3.select("#tooltip3").remove()
+            })
         })
     d3.csv("csv_locations/nba_teams_loc.csv", interpreter).then((datos)=>{
         console.log(datos)
         nba.selectAll("circle")
             .data(datos)
-            .enter()
-            .append("circle")
-            .attr("class", (d) => `${d.CITY} NBA city`)
-            .attr("cx", (d) => proyeccion([d.longitude, d.latitude])[0])
-            .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
-            .attr("r", 3)
-            .attr("fill", "blue")
-            .attr("transform", "translate (-6 0)")
-            .on("mouseover", mouseover)
-            .on("mouseout", mouseout)
+            .join(
+                (enter) =>
+                enter.append("circle")
+                .attr("class", (d) =>`${d.CITY} NBA city`)
+                .attr("cx", (d) => proyeccion([d.longitude, d.latitude])[0])
+                .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
+                .attr("r", 3)
+                .attr("fill", "blue")
+                .attr("transform", "translate (-6 0)"),
+                
+            ).on("mouseover", (evento, d) => {
+                d3.select(evento.currentTarget)
+                    .attr("r", 10);
+                nba.append("text")
+                    .attr("id", "tooltip")
+                    .attr("x", 60)
+                    .attr("y", 470)
+                    .text(`City: ${d.CITY}`);
+                nba.append("text")
+                    .attr("id", "tooltip2")
+                    .attr("x", 60)
+                    .attr("y", 490)
+                    .text(`Team: ${d.NAME}`);
+                nba.append("text")
+                    .attr("id", "tooltip3")
+                    .attr("x", 60)
+                    .attr("y", 510)
+                    .text("League: NBA")
+
+            }).on("mouseout", (evento, d) => {
+                d3.select(evento.currentTarget)
+                .attr("r", 3)
+                d3.select("#tooltip").remove()
+                d3.select("#tooltip2").remove()
+                d3.select("#tooltip3").remove()
+            })
         })
         
     
@@ -274,10 +354,14 @@ const iteration = () => {
 const liga = document.getElementById("drop")
 liga.oninput = function() {
     optionValue = this.value;
-    console.log(optionValue)
-    d3.selectAll(".city")
-        .style("visibility", "hidden")
-    d3.selectAll(`.${optionValue}`)
-        .style("visibility", "visible")
-    
+    if (optionValue == "todos"){
+        d3.selectAll(".city")
+            .style("visibility", "visible")
+    } else {
+        d3.selectAll(".city")
+            .style("visibility", "hidden")
+        d3.selectAll(`.${optionValue}`)
+            .style("visibility", "visible")
+        }
+     
 }

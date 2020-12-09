@@ -12,3 +12,9 @@ p {
     margin:0;
     margin-left: 10px;
 }
+
+.map {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
