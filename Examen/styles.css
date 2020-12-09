@@ -1,0 +1,14 @@
+text {
+    font-family: "Courier New";
+    font-weight: bold;
+    
+}
+
+svg {
+   font-family: "Helvetica";
+}
+
+p {
+    margin:0;
+    margin-left: 10px;
+}
