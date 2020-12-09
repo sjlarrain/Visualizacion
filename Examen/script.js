@@ -31,7 +31,7 @@ const svg = d3.selectAll(".usa")
               .attr("height", size.height)
               .style("border", "1px solid black");
 
-const svg1 = d3.selectAll(".Info")
+const svg1 = d3.selectAll(".info")
                 .append("svg")
                 .attr("class", 'svg')
                 .attr("width", sizeInfo.width)
