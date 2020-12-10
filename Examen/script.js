@@ -512,5 +512,18 @@ treeBuilder(raiz, nbaTree, nbaMap_svg, 8)
 console.log(error);
 });
 
-
+const liga = document.getElementById("drop")
+liga.oninput = function() {
+    optionValue = this.value;
+    if (optionValue == "todos"){
+        d3.selectAll(".city")
+            .style("visibility", "visible")
+    } else {
+        d3.selectAll(".city")
+            .style("visibility", "hidden")
+        d3.selectAll(`.${optionValue}`)
+            .style("visibility", "visible")
+        }
+     
+}
 
