@@ -51,6 +51,177 @@
             <div class="NFL_map"></div>
         </div>
     </div>
+
+    <div class="informe">
+        <div class="titulo">Informe</div>
+        <div class="subtitle">Introduccion y Contextualizacion</div>
+        <div class="contenido">
+            <p>Estados unidos es el mercado deportivo más grande que hay en el mundo. Un sistema de franquicias es el núcleo del funcionamiento de cada una de estas ligas. Estas necesitan estar en un mercado importante y esto se 
+                expresa que estan ubicadas en urbes importantes que puedan ser rentables para el equipo.  
+            </p>
+            <p>Esto último lleva a que esten esparcidas por todo el país como nos permite ver la primera visualización que hace referencia a <b>¿Donde están ubicados las franquicias?</b>. Por otro lado, estas ligas se subdividen en conferencias y divisiones.
+            La segunda visualización, que esta subdividida en tres para representar cada una de las ligas, responde a las siguietes preguntas:</p>
+            <ul>
+                <li>¿Como es la subdivisión?</li>
+                <li>¿Razón de esta subdivisión?</li>
+            </ul>
+        </div>
+    </div>
+    <div class="subtitle">Acciones y Objetivos</div>
+    <div class="contenido">
+        <p><b>Descubrir</b> donde se ubican cada una de estas franquicias. Donde estan ubicadas y ver cuales son las ciudades que tienen por detrás. Esta se intenta concretar a través de la primera visualización con el objetivo de recononcer la importancia de la ciudad.</p>
+        <p><b>Descubrir</b> las conferencias y divisiones de las ligas, esto a través del árbol con la información correspondiente en la segunda sección. El objetivo es aprender de que estas ligas son parte de un sistema más complejo que solo una división tal la conocemos.</p>
+        <p><b>Analizar</b> cual puede ser la razón de porque esta subdividida como esta esa liga. ¿Hay una razón? ¿Cuál es esta razón?. El objetivo es cuestionarse la subdivisión</p>
+        <p><b>Buscar</b> donde esta algún equipo en particular. Esta busqueda sería de tipo <i>locate</i> ya que si sabemos que estamos buscando pero no sabemos bien donde está en el mapa. El objetivo es disfrutar y <i>jugar</i> un poco con la visualización</p>
+        <p><b>Resumir</b> donde están todas las franquicias de EE.UU en una sola visualización. El objetivo es ver en un plano común donde se encuentran todas las franquicias.</p>
+    </div>
+    <div class="subtitle">Dataset</div>
+    <div class="contenido">
+        <p>La información se dividen entres datasets los cuales son fundamentales para la construcción de toda la visualización. Primero son los archivos "geojson" los cuales cumplen un rol para el diseño de los mapas y la ubicación de las ciudades. Estos a través de pyhton fueron
+            utilizados para conformar el dataset final el cual se describirá a continuación.</p>
+        <p>
+            Los archivos "csv" corresponden a los datos útilizados para representar la visualización. Estos archivos correponden a los distintos equipos de las distintas ligas que se representarón en la visualización. El dataset es estático, por lo que no cambia a medida que pasán los años.
+            Los equipos son bastante estables con respecto a su ubicación en en el tiempo.
+        </p>
+        <p>Este dataset es de forma tabular, por lo que tiene atributos e ítems. Sin embargo, tenemos dos atributos que sirven de posición como lo son los datos de longitud y latitud presentes en el dataset.</p> 
+            <table class="tg">
+            <thead>
+              <tr>
+                <th class="tg-0lax"></th>
+                <th class="tg-0lax">¿Categorico u ordenado?</th>
+                <th class="tg-0lax">¿Ordinal o cuantitativo?</th>
+                <th class="tg-0lax">¿Secuencial o divergente?</th>
+                <th class="tg-0lax">¿Ciclico o no ciclíco?</th>
+                <th class="tg-0lax">¿Llave o valor?</th>
+                <th class="tg-0lax">Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tg-0lax">ABBREVIATION</td>
+                <td class="tg-0lax">Categorico</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">Atributo</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">NAME</td>
+                <td class="tg-0lax">Categorico</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">Atributo</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">CITY</td>
+                <td class="tg-0lax">Categorico</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">Atributo</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">CONFERENCE</td>
+                <td class="tg-0lax">Categorico</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">Atributo</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">DIVISION</td>
+                <td class="tg-0lax">Categorico</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">No aplica</td>
+                <td class="tg-0lax">Atributo</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">longitude</td>
+                <td class="tg-0lax">Ordenado</td>
+                <td class="tg-0lax">Cuatitativo</td>
+                <td class="tg-0lax">Divergente</td>
+                <td class="tg-0lax">No ciclíco</td>
+                <td class="tg-0lax">Valor</td>
+                <td class="tg-0lax">Posición</td>
+              </tr>
+              <tr>
+                <td class="tg-0lax">latitude</td>
+                <td class="tg-0lax">Ordenado</td>
+                <td class="tg-0lax">Cuatitativo</td>
+                <td class="tg-0lax">Divergente</td>
+                <td class="tg-0lax">No ciclíco</td>
+                <td class="tg-0lax">Valor</td>
+                <td class="tg-0lax">Posición</td>
+              </tr>
+            </tbody>
+            </table>
+    </div>
+    <div class="subtitle">Codificación</div>
+    <div class="contenido">
+        <p>En esta sección explicaremos las distitnas marcas, canales, idioms visuales y de interacción ademas de las decisiones de diseño que se tomarón a lo largo de la construcción de la visualización.</p>
+        <div class="microtitle">Diseño</div>
+        <p>El diseño se decidio poner cada tarea en un fila y esta subdividirla en columnas. De esta forma el usuario no tiene que ir desplazandose y puede ver todo en una ventana general.
+            Se busco que todo tuviera la misma consistencia a través de la distintas visualizaciones, es decir, se ocupo la misma fuente y colores para cada una de las visualizaciones. También se eligío poner primero la visualización al informe para
+            primero poder expirementar de forma no sesgada la visualización.
+        </p>
+        <p>Se puso primero la visualización del mapa completo con el objetivo de tener un espectro general de todas las ciudades y equipos que existen. Que el usuario pueda experimentar un poco con esa visualización antes de pasar a una visualización mas detallada
+            por liga, donde el usuario puede seleccionar un equipo especifico donde se encuentra, como se compone una división o conferencia.
+        </p>
+        <div class="microtitle"><i>Idiom</i> visualización</div>
+        <ul> <p>Como se puede apreciar hay dos tipos de visualizaciones principales que se implementarón de forma separada para cada tarea que cumplen.</p> 
+            <li>Mapa de EE.UU: Este fue hecho bajo las herramientas de d3-geo-projection con el objetivo de presentar bajo un plano todas las franquicias de las tres ligas representadas. En esta visualización podemos encasillar las acciones de <b>descubrir</b>, <b>resumir</b> y <b>buscar</b> donde se ubican todas las franquicias.</li>
+            <li>Arboles por Liga y Mapa: Se implemento árboles que representan las distintas subdivisiones dentro de las ligas. De esta forma se puede ver claramenrte que equipo corresponde a que división. Para esta visualización se 
+                ocupo d3-hierarchy. Acá se espera que el usuario pueda <b>descubrir</b> las distintas conferencias y divisiones y <b>analizar</b> porque puede ser así esa subdivisión. El mapa que se implementa a la derecha es para potenciar esa última acción ya que así facilitamos al usuario 
+                encontrar donde se ubican en el mapa.
+            </li>
+        </ul>
+        </div>
+        <div class="microtitle"><i>Idiom</i> interacción</div>
+        <ul> <p>Como se puede las visualizaciones tiene interaciones incorporadas para hacer más rica la comunicación de la visualización. A continuación presentamos las que tiene cada una.</p>
+            <li> 
+                <ul>Mapa de EEUU
+                    <li>Seleccion: En un elemento de tipo <i>select</i> se puede darle al usuario la opción de reducir las marcas representadas en el mapa, seleccionado solo la liga que le interesa visualizar</li>
+                    <li><i>Mouseover y Mouseout</i>: Esta interacción le permite al usuario poder buscar y descubrir que equipo esta detrás del punto. Para esto se despliega a la derecha el nombre, ciudad y liga del equipo además de su logo</li>
+                    <li>Zoom: Se puede solo hacer accercamiento a través de doble click o scroll. Se implemento ya que en la costa este del mapa las marcas estan más juntas y por lo tanto el usuario puede interactuar más facilmente con las marcas.</li>
+                </ul> 
+            </li>
+            <li>
+                <ul>Árbol por liga
+                    <li><i>Click</i>: Se implemento esta opción en cada en las marcas de tipo <i>circle</i> para que pueda descubrir donde se ubica cada elemento que se encuentra en esa rama. Es decir si clickea un equipo puede ver donde está,
+                    si es una división, donde se encuentran todos los equipos de esa división.</li>
+                </ul>
+            </li>
+        </ul> 
+        </div>
+        <div class="microtitle">Marcas</div>
+            <ul> <p>Como se puede apreciar hay distintas marcas que se utilizan. Se explican de acuerdo a la visualización</p> 
+                <li>Mapa de EE.UU: Se hicieron marcas de tipo <i>path</i>  para poder representar los estados y circulos para poder representar las franquicias.</li>
+                <li>Arboles: Se ocuparon circulos para representar los nodos donde se conectaban y <i>path</i> para las uniones entres los nodos.</li>
+            </ul>
+        </div>
+        <div class="microtitle">Canales</div>
+            <ul> <p>Como se puede apreciar hay distintas canales que se utilizan. Se explican de acuerdo a la visualización</p>  
+                <li> <ul>Mapa de EE.UU:
+                        <li>Mapa: Este se le aplicaro un color gris ya que no es lo que se busca resaltar en la visualización. Permite dar solo ubicación para las ciudades</li>
+                        <li>Circulos: Se les dio la marca de color para poder diferenciar entre ligas. También el tamaño cuando es seleccionada para mostrarle al usuario donde esta con el mouse.</li>
+                    </ul> 
+                </li>
+                <li>
+                    <ul>Arboles:
+                        <li>Lineas: Se mantuvo el color negro ya que lo que se busca comunicar a través de ella es la unión que lo representa la marca en sí</li>
+                        <li>Circulos: Se mantuvo el color sin emabrgo se les dio un tamaño mas grande para poder facilitar el click. También se pinto de color distintivo para representar donde se esta visualizando.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    
     
      
 </body>

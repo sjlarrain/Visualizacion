@@ -8,7 +8,7 @@ svg {
    font-family: "Helvetica";
 }
 
-p {
+p, li, ul {
     font-family: "Courier New";
     font-weight: normal;
     margin:10;
@@ -50,4 +50,40 @@ body {
     font-size: 1cm;
     font-family: "Courier New";
     width: 100%;
+    margin-top: 10px
+}
+.microtitle {
+    text-align: left;
+    font-size: 0.7cm;
+    font-family: "Courier New";
+    width: 100%;
+    margin-top: 5px;
+}
+.tg  {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+.tg td{
+    border-color:black;
+    border-style:solid;
+    border-width:1px;
+    font-family: "Courier New";
+    font-size:14px;
+    overflow:hidden;
+    padding:10px 5px;
+    word-break:normal;
+}
+.tg th{
+    border-color:black;
+    border-style:solid;
+    border-width:1px;
+    font-family: "Courier New";
+    font-size:14px;
+    font-weight:normal;
+    overflow:hidden;
+    padding:10px 5px;
+    word-break:normal;}
+.tg .tg-0lax{
+    text-align:left;
+    vertical-align:top
 }
