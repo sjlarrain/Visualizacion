@@ -198,9 +198,13 @@ const linksGenerator = d3
     .attr("r", 5)
     .attr("class", (d) => d.data.CITY)
     .on("click", (evento) => {
+        container.selectAll("circle")
+                .attr("fill", "black")
         reference.selectAll("circle")
                     .style("visibility", "hidden")
         let clase = evento.currentTarget.className.baseVal
+        container.selectAll(`.${clase}`)
+                .attr("fill", "red")
         reference.selectAll(`.${clase}`)
                     .style("visibility", "visible")
                 })
@@ -216,6 +220,7 @@ const linksGenerator = d3
     .attr("font-size", 14)
     .attr("dy", (d, i) => deepnessx(i, branch))
     .attr("dx", (d, i) => deepnessy(i, branch))
+    
 
 }
 
