@@ -125,7 +125,7 @@ const interpreter = (d) => {
         }
 };
 
-const deepness = (d, branch) => {
+const deepnessx = (d, branch) => {
     console.log(d)
     if (d > branch){
         return 5
@@ -133,9 +133,16 @@ const deepness = (d, branch) => {
         return -10
     }
 }
+const deepnessy = (d, branch) => {
+    console.log(d)
+    if (d > branch){
+        return 8
+    } else {
+        return -15
+    }
+}
 
 const treeBuilder = (raiz, container, reference, branch) => {
-
     const tree = d3
     .tree()
     .size([
@@ -177,7 +184,8 @@ const linksGenerator = d3
                     .style("visibility", "hidden")
         let clase = evento.currentTarget.className.baseVal
         reference.selectAll(`.${clase}`)
-                    .style("visibility", "visible")})
+                    .style("visibility", "visible")
+                })
 
     container
     .selectAll("text")
@@ -187,9 +195,9 @@ const linksGenerator = d3
     .attr("x", (d) => d.y)
     .attr("y", (d) => d.x)
     .text((d) => d.data.NAME)
-    .attr("font-size", 12)
-    .attr("dy", (d, i) => deepness(i, branch))
-    .attr("dx", (d, i) => deepness(i, branch))
+    .attr("font-size", 14)
+    .attr("dy", (d, i) => deepnessx(i, branch))
+    .attr("dx", (d, i) => deepnessy(i, branch))
 
 }
 
@@ -231,7 +239,6 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             .enter()
             .append("path")
             .attr("d", pathGeo)
-            .attr("class", (d) =>  `${d.properties.CITY} ${d.properties.DIVISION} ${d.properties.CONFERENCE} NBA`)
             .attr("fill", "grey")
             .attr("opacity", 0.3)
             .attr("stroke", "grey")
@@ -241,7 +248,6 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             .enter()
             .append("path")
             .attr("d", pathGeo)
-            .attr("class", (d) =>  `${d.properties.CITY} ${d.properties.DIVISION} ${d.properties.CONFERENCE} MLB`)
             .attr("fill", "grey")
             .attr("opacity", 0.3)
             .attr("stroke", "grey")
@@ -251,7 +257,6 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             .enter()
             .append("path")
             .attr("d", pathGeo)
-            .attr("class", (d) => `${d.properties.CITY} ${d.properties.DIVISION} ${d.properties.CONFERENCE} NFL`)
             .attr("fill", "grey")
             .attr("opacity", 0.3)
             .attr("stroke", "grey")
@@ -311,7 +316,7 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             .join(
                 (enter) =>
                 enter.append("circle")
-                .attr("class", (d) =>`${d.CITY} ${d.DIVISION} ${d.CONFERENCE}`)
+                .attr("class", (d) =>`${d.CITY} ${d.DIVISION} ${d.CONFERENCE} MLB`)
                 .attr("cx", (d) => minimap([d.longitude, d.latitude])[0])
                 .attr("cy", (d) => minimap([d.longitude, d.latitude])[1])
                 .attr("r", 4)
@@ -375,11 +380,11 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             .join(
                 (enter) =>
                 enter.append("circle")
-                .attr("class", (d) =>`${d.CITY} ${d.DIVISION} ${d.CONFERENCE}`)
+                .attr("class", (d) =>`${d.CITY} ${d.DIVISION} ${d.CONFERENCE} NFL`)
                 .attr("cx", (d) => minimap([d.longitude, d.latitude])[0])
                 .attr("cy", (d) => minimap([d.longitude, d.latitude])[1])
                 .attr("r", 4)
-                .attr("fill", "red")
+                .attr("fill", "green")
                 .attr("transform", "translate (0 0)")
                 .style("visibility", "visible"))
 
@@ -438,11 +443,11 @@ d3.json("json_locations/usa.geojson").then((datos) => {
             .join(
                 (enter) =>
                 enter.append("circle")
-                .attr("class", (d) =>`${d.CITY} ${d.DIVISION} ${d.CONFERENCE}`)
+                .attr("class", (d) =>`${d.CITY} ${d.DIVISION} ${d.CONFERENCE} NBA`)
                 .attr("cx", (d) => minimap([d.longitude, d.latitude])[0])
                 .attr("cy", (d) => minimap([d.longitude, d.latitude])[1])
                 .attr("r", 4)
-                .attr("fill", "red")
+                .attr("fill", "blue")
                 .attr("transform", "translate (0 0)")
                 .style("visibility", "visible"))
         })
