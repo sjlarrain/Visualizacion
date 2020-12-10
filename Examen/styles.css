@@ -9,8 +9,16 @@ svg {
 }
 
 p {
-    margin:0;
+    font-family: "Courier New";
+    font-weight: normal;
+    margin:10;
     margin-left: 10px;
+}
+
+body {
+    margin-left: 150px;
+    margin-right: 150px;
+    
 }
 
 .map {
@@ -28,4 +36,13 @@ p {
 .info {
     display: grid;
     grid-template-rows: auto;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 1.5cm;
+    font-family: "Courier New";
+    height: 100px;
+    width: 100%;
+    p
 }

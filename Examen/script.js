@@ -12,8 +12,16 @@ const sizeInfo = {
 
 const sizeTree = {
     width: 800,
-    height:500
+    height:450
 };
+const sizeTree_g = {
+    width:600,
+    height: 450
+ };
+const sizeMini = {
+    width: 500,
+    height:450
+}
 
 const margin = {
     top: 50,
@@ -53,8 +61,17 @@ const mlbTree_svg = d3.selectAll(".MLB_tree")
                     .attr("padding", 0)
                     .style("border", "1px solid black");
 const mlbTree = mlbTree_svg.append("g")
-                    .attr("width", sizeTree.width - margin.left - margin.right)
-                    .attr("height", sizeTree.height - margin.top - margin.bottom)
+                    .attr("width", sizeTree.width)
+                    .attr("height", sizeTree.height)
+                    .attr("transform", "translate (100, 50)")
+
+const mlbMap_svg = d3.selectAll(".MLB_map")
+                    .append("svg")
+                    .attr("class", 'svg_mlb')
+                    .attr("width", sizeMini.width)
+                    .attr("height", sizeMini.height)
+                    .attr("padding", 0)
+                    .style("border", "1px solid black");
 
 const nbaTree_svg = d3.selectAll(".NBA_tree")
                     .append("svg")
@@ -63,8 +80,17 @@ const nbaTree_svg = d3.selectAll(".NBA_tree")
                     .attr("height", sizeTree.height)
                     .style("border", "1px solid black");
 const nbaTree = nbaTree_svg.append("g")
-                    .attr("width", sizeTree.width - margin.left - margin.right)
-                    .attr("height", sizeTree.height - margin.top - margin.bottom)
+                    .attr("width", sizeTree.width)
+                    .attr("height", sizeTree.height)
+                    .attr("transform", "translate (100, 50)")
+
+const nbaMap_svg = d3.selectAll(".NBA_map")
+                        .append("svg")
+                        .attr("class", 'svg')
+                        .attr("width", sizeMini.width)
+                        .attr("height", sizeMini.height)
+                        .attr("padding", 0)
+                        .style("border", "1px solid black");
 
 const nflTree_svg = d3.selectAll(".NFL_tree")
                     .append("svg")
@@ -73,8 +99,17 @@ const nflTree_svg = d3.selectAll(".NFL_tree")
                     .attr("height", sizeTree.height)
                     .style("border", "1px solid black");
 const nflTree = nflTree_svg.append("g")
-                    .attr("width", sizeTree.width - margin.left - margin.right)
-                    .attr("height", sizeTree.height - margin.top - margin.bottom)
+                    .attr("width", sizeTree.width)
+                    .attr("height", sizeTree.height)
+                    .attr("transform", "translate (100, 50)")
+
+const nflMap_svg = d3.selectAll(".NFL_map")
+                    .append("svg")
+                    .attr("class", 'svg_nfl')
+                    .attr("width", sizeMini.width)
+                    .attr("height", sizeMini.height)
+                    .attr("padding", 0)
+                    .style("border", "1px solid black");
 
 
 
@@ -90,18 +125,27 @@ const interpreter = (d) => {
         }
 };
 
-const treeBuilder = (raiz, container) => {
+const deepness = (d, branch) => {
+    console.log(d)
+    if (d > branch){
+        return 5
+    } else {
+        return -10
+    }
+}
+
+const treeBuilder = (raiz, container, reference, branch) => {
 
     const tree = d3
     .tree()
     .size([
-        sizeTree.height - margin.top - margin.bottom,
-        sizeTree.width - margin.left - margin.right
-        
+        sizeTree_g.height - margin.left - margin.right,
+        sizeTree_g.width - margin.top - margin.bottom
+   
     ]);
 
   tree(raiz)
-  console.log(raiz)
+  console.log(raiz.descendants())
 
 const linksGenerator = d3
     .linkHorizontal()
@@ -126,7 +170,14 @@ const linksGenerator = d3
     .append("circle")
     .attr("cx", (d) => d.y)
     .attr("cy", (d) => d.x)
-    .attr("r", 3);
+    .attr("r", 5)
+    .attr("class", (d) => d.data.CITY)
+    .on("click", (evento) => {
+        reference.selectAll("circle")
+                    .style("visibility", "hidden")
+        let clase = evento.currentTarget.className.baseVal
+        reference.selectAll(`.${clase}`)
+                    .style("visibility", "visible")})
 
     container
     .selectAll("text")
@@ -137,8 +188,8 @@ const linksGenerator = d3
     .attr("y", (d) => d.x)
     .text((d) => d.data.NAME)
     .attr("font-size", 12)
-    .attr("dy", 4)
-    .attr("dx", 4)
+    .attr("dy", (d, i) => deepness(i, branch))
+    .attr("dx", (d, i) => deepness(i, branch))
 
 }
 
@@ -161,18 +212,51 @@ function mouseout() {
 d3.json("json_locations/usa.geojson").then((datos) => {
     const proyeccion = d3.geoMercator().fitSize([size.width, size.height], datos);
     const caminoGeo = d3.geoPath().projection(proyeccion);
+
+    const minimap = d3.geoMercator().fitSize([sizeMini.width, sizeMini.height], datos)
+    const pathGeo = d3.geoPath().projection(minimap);
     
     g.selectAll("path")
-    .data(datos.features)
-    .enter()
-    .append("path")
-        .attr("d", caminoGeo)
-        .attr("class", (d) => d.properties.NAME)
-        .attr("fill", "grey")
-        .attr("opacity", 0.3)
-        .attr("stroke", "grey")
+            .data(datos.features)
+            .enter()
+            .append("path")
+            .attr("d", caminoGeo)
+            .attr("class", (d) => d.properties.NAME)
+            .attr("fill", "grey")
+            .attr("opacity", 0.3)
+            .attr("stroke", "grey")
+    
+    nbaMap_svg.selectAll("path")
+            .data(datos.features)
+            .enter()
+            .append("path")
+            .attr("d", pathGeo)
+            .attr("class", (d) =>  `${d.properties.CITY} ${d.properties.DIVISION} ${d.properties.CONFERENCE} NBA`)
+            .attr("fill", "grey")
+            .attr("opacity", 0.3)
+            .attr("stroke", "grey")
+
+    mlbMap_svg.selectAll("path")
+            .data(datos.features)
+            .enter()
+            .append("path")
+            .attr("d", pathGeo)
+            .attr("class", (d) =>  `${d.properties.CITY} ${d.properties.DIVISION} ${d.properties.CONFERENCE} MLB`)
+            .attr("fill", "grey")
+            .attr("opacity", 0.3)
+            .attr("stroke", "grey")
+
+    nflMap_svg.selectAll("path")
+            .data(datos.features)
+            .enter()
+            .append("path")
+            .attr("d", pathGeo)
+            .attr("class", (d) => `${d.properties.CITY} ${d.properties.DIVISION} ${d.properties.CONFERENCE} NFL`)
+            .attr("fill", "grey")
+            .attr("opacity", 0.3)
+            .attr("stroke", "grey")
         
-        d3.csv("csv_locations/mlb_teams_loc.csv", interpreter).then((datos)=>{
+    d3.csv("csv_locations/mlb_teams_loc.csv", interpreter).then((datos)=>{
         console.log(datos)
         mlb.selectAll("circle")
             .data(datos)
@@ -184,7 +268,7 @@ d3.json("json_locations/usa.geojson").then((datos) => {
                 .attr("cy", (d) => proyeccion([d.longitude, d.latitude])[1])
                 .attr("r", 3)
                 .attr("fill", "red")
-                .attr("transform", "translate (0 0)"),
+                .attr("transform", "translate (0 0)")
                 
             ).on("mouseover", (evento, d) => {
                 d3.select(evento.currentTarget)
@@ -222,6 +306,19 @@ d3.json("json_locations/usa.geojson").then((datos) => {
                 d3.select("#tooltip2").remove()
                 d3.select("#tooltip3").remove()
             })
+        mlbMap_svg.selectAll("circle")
+            .data(datos)
+            .join(
+                (enter) =>
+                enter.append("circle")
+                .attr("class", (d) =>`${d.CITY} ${d.DIVISION} ${d.CONFERENCE}`)
+                .attr("cx", (d) => minimap([d.longitude, d.latitude])[0])
+                .attr("cy", (d) => minimap([d.longitude, d.latitude])[1])
+                .attr("r", 4)
+                .attr("fill", "red")
+                .attr("transform", "translate (0 0)")
+                .style("visibility", "visible"))
+        
     })
     d3.csv("csv_locations/nfl_teams_loc.csv", interpreter).then((datos)=>{
         console.log(datos)
@@ -273,6 +370,19 @@ d3.json("json_locations/usa.geojson").then((datos) => {
                 d3.select("#tooltip2").remove()
                 d3.select("#tooltip3").remove()
             })
+            nflMap_svg.selectAll("circle")
+            .data(datos)
+            .join(
+                (enter) =>
+                enter.append("circle")
+                .attr("class", (d) =>`${d.CITY} ${d.DIVISION} ${d.CONFERENCE}`)
+                .attr("cx", (d) => minimap([d.longitude, d.latitude])[0])
+                .attr("cy", (d) => minimap([d.longitude, d.latitude])[1])
+                .attr("r", 4)
+                .attr("fill", "red")
+                .attr("transform", "translate (0 0)")
+                .style("visibility", "visible"))
+
         })
     d3.csv("csv_locations/nba_teams_loc.csv", interpreter).then((datos)=>{
         console.log(datos)
@@ -323,6 +433,18 @@ d3.json("json_locations/usa.geojson").then((datos) => {
                 d3.select("#tooltip2").remove()
                 d3.select("#tooltip3").remove()
             })
+            nbaMap_svg.selectAll("circle")
+            .data(datos)
+            .join(
+                (enter) =>
+                enter.append("circle")
+                .attr("class", (d) =>`${d.CITY} ${d.DIVISION} ${d.CONFERENCE}`)
+                .attr("cx", (d) => minimap([d.longitude, d.latitude])[0])
+                .attr("cy", (d) => minimap([d.longitude, d.latitude])[1])
+                .attr("r", 4)
+                .attr("fill", "red")
+                .attr("transform", "translate (0 0)")
+                .style("visibility", "visible"))
         })
         
     
@@ -351,7 +473,7 @@ d3.csv("csv_teams/mlb_tree.csv").then((datos) => {
         .parentId((d) => d.PARENT);
 
 const raiz = stratify(datos);
-treeBuilder(raiz, mlbTree)
+treeBuilder(raiz, mlbTree, mlbMap_svg, 8)
 
 })
 .catch((error) => {
@@ -365,7 +487,7 @@ d3.csv("csv_teams/nfl_tree.csv").then((datos) => {
         .parentId((d) => d.PARENT);
         
         const raiz = stratify(datos);
-        treeBuilder(raiz, nflTree)
+        treeBuilder(raiz, nflTree, nflMap_svg, 10)
         
 })
 .catch((error) => {
@@ -378,7 +500,7 @@ d3.csv("csv_teams/nba_tree.csv").then((datos) => {
         .parentId((d) => d.PARENT);
 
 const raiz = stratify(datos);
-treeBuilder(raiz, nbaTree)
+treeBuilder(raiz, nbaTree, nbaMap_svg, 8)
 
 })
 .catch((error) => {
@@ -387,17 +509,3 @@ console.log(error);
 
 
 
-const liga = document.getElementById("drop")
-liga.oninput = function() {
-    optionValue = this.value;
-    if (optionValue == "todos"){
-        d3.selectAll(".city")
-            .style("visibility", "visible")
-    } else {
-        d3.selectAll(".city")
-            .style("visibility", "hidden")
-        d3.selectAll(`.${optionValue}`)
-            .style("visibility", "visible")
-        }
-     
-}
