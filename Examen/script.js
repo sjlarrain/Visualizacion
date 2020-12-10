@@ -11,7 +11,7 @@ const sizeInfo = {
 };
 
 const sizeTree = {
-    width: 800,
+    width: 750,
     height:450
 };
 const sizeTree_g = {
@@ -30,6 +30,7 @@ const margin = {
     right: 50,
   };
 
+const colors = ["red", "green", "blue"]
 
 // SVG & "g" generations  
 const svg = d3.selectAll(".usa")
@@ -45,6 +46,8 @@ const svg1 = d3.selectAll(".info")
                 .attr("width", sizeInfo.width)
                 .attr("height", sizeInfo.height)
                 .style("border", "1px solid black")
+
+                
 const h = svg.append("g")
 
 const p = svg1.append("g")
@@ -52,6 +55,19 @@ const g = h.append("g")
 const nba = h.append("g")
 const nfl = h.append("g")
 const mlb = h.append("g")
+
+p.selectAll("circle")
+        .data([0, 1, 2])
+        .join("circle")
+        .attr("r", 10)
+        .attr("fill", (_, i) => colors[i])
+        .attr("transform", (_,i) => `translate(${i*100 + 42} 450)`)
+
+p.selectAll("text")
+        .data(["MLB", "NFL", "NBA"])
+        .join("text")
+        .text((d) => d)
+        .attr("transform", (_,i) => `translate(${i*100 + 58} 453)`)
 
 const mlbTree_svg = d3.selectAll(".MLB_tree")
                     .append("svg")
@@ -63,7 +79,7 @@ const mlbTree_svg = d3.selectAll(".MLB_tree")
 const mlbTree = mlbTree_svg.append("g")
                     .attr("width", sizeTree.width)
                     .attr("height", sizeTree.height)
-                    .attr("transform", "translate (100, 50)")
+                    .attr("transform", "translate (50, 50)")
 
 const mlbMap_svg = d3.selectAll(".MLB_map")
                     .append("svg")
@@ -82,7 +98,7 @@ const nbaTree_svg = d3.selectAll(".NBA_tree")
 const nbaTree = nbaTree_svg.append("g")
                     .attr("width", sizeTree.width)
                     .attr("height", sizeTree.height)
-                    .attr("transform", "translate (100, 50)")
+                    .attr("transform", "translate (50, 50)")
 
 const nbaMap_svg = d3.selectAll(".NBA_map")
                         .append("svg")
@@ -101,7 +117,7 @@ const nflTree_svg = d3.selectAll(".NFL_tree")
 const nflTree = nflTree_svg.append("g")
                     .attr("width", sizeTree.width)
                     .attr("height", sizeTree.height)
-                    .attr("transform", "translate (100, 50)")
+                    .attr("transform", "translate (50, 50)")
 
 const nflMap_svg = d3.selectAll(".NFL_map")
                     .append("svg")
@@ -110,6 +126,8 @@ const nflMap_svg = d3.selectAll(".NFL_map")
                     .attr("height", sizeMini.height)
                     .attr("padding", 0)
                     .style("border", "1px solid black");
+
+const liga = document.getElementById("drop")
 
 
 
@@ -214,7 +232,19 @@ function mouseout() {
     d3.select(this).attr("r", 3);
 }
 
-
+liga.oninput = function() {
+    optionValue = this.value;
+    if (optionValue == "todos"){
+        d3.selectAll(".city")
+            .style("visibility", "visible")
+    } else {
+        d3.selectAll(".city")
+            .style("visibility", "hidden")
+        d3.selectAll(`.${optionValue}`)
+            .style("visibility", "visible")
+        }
+     
+}
 
 // Jsons
 d3.json("json_locations/usa.geojson").then((datos) => {
@@ -512,18 +542,5 @@ treeBuilder(raiz, nbaTree, nbaMap_svg, 8)
 console.log(error);
 });
 
-const liga = document.getElementById("drop")
-liga.oninput = function() {
-    optionValue = this.value;
-    if (optionValue == "todos"){
-        d3.selectAll(".city")
-            .style("visibility", "visible")
-    } else {
-        d3.selectAll(".city")
-            .style("visibility", "hidden")
-        d3.selectAll(`.${optionValue}`)
-            .style("visibility", "visible")
-        }
-     
-}
+
 
