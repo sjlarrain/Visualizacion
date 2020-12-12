@@ -1,0 +1,40 @@
+NAME,PARENT,CITY,CONFERENCE
+Atlanta Hawks,Southeast,Atlanta,East
+Boston Celtics,Atlantic,Boston,East
+New Orleans Pelicans,Southwest,New Orleans,West
+Chicago Bulls,Central,Chicago,East
+Dallas Mavericks,Southwest,Dallas,West
+Denver Nuggets,Northwest,Denver,West
+Houston Rockets,Southwest,Houston,West
+Los Angeles Clippers,Pacific,Los Angeles,West
+Los Angeles Lakers,Pacific,Los Angeles,West
+Miami Heat,Southeast,Miami,East
+Milwaukee Bucks,Central,Milwaukee,East
+Minnesota Timberwolves,Northwest,Minneapolis,West
+Brooklyn Nets,Atlantic,New York,East
+New York Knicks,Atlantic,New York,East
+Orlando Magic,Southeast,Orlando,East
+Indiana Pacers,Central,Indianapolis,East
+Philadelphia 76ers,Atlantic,Philadelphia,East
+Phoenix Suns,Pacific,Phoenix,West
+Portland Trail Blazers,Northwest,Portland,West
+Sacramento Kings,Pacific,Sacramento,West
+San Antonio Spurs,Southwest,San Antonio,West
+Oklahoma City Thunder,Northwest,Oklahoma City,West
+Toronto Raptors,Atlantic,Toronto,East
+Utah Jazz,Northwest,Salt Lake City,West
+Memphis Grizzlies,Southwest,Memphis,West
+Washington Wizards,Southeast,Washington,East
+Detroit Pistons,Central,Detroit,East
+Charlotte Hornets,Southeast,Charlotte,East
+Cleveland Cavaliers,Central,Cleveland,East
+Golden State Warriors,Pacific,San Francisco,West
+Southeast,East,Southeast,None
+Atlantic,East,Atlantic,None
+Central,East,Central,None
+Northwest,West,Northwest,None
+Southwest,West,Southwest,None
+Pacific,West,Pacific,None
+West,NBA,West,None
+East,NBA,East,None
+NBA,,NBA,

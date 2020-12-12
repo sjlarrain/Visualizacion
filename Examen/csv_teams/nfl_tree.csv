@@ -1,0 +1,44 @@
+NAME,PARENT,CITY,CONFERENCE
+Arizona Cardinals,West_NFC,Phoenix,West_NFC
+Atlanta Falcons,South_NFC,Atlanta,South_NFC
+Baltimore Ravens,North_AFC,Baltimore,North_AFC
+Buffalo Bills,East_AFC,Buffalo,East_AFC
+Carolina Panthers,South_NFC,Charlotte,South_NFC
+Chicago Bears,North_NFC,Chicago,North_NFC
+Cincinnati Bengals,North_AFC,Cincinnati,North_AFC
+Cleveland Browns,North_AFC,Cleveland,North_AFC
+Dallas Cowboys,East_NFC,Dallas,East_NFC
+Denver Broncos,West_AFC,Denver,West_AFC
+Detroit Lions,North_NFC,Detroit,North_NFC
+Green Bay Packers,North_NFC,Green Bay,North_NFC
+Houston Texans,South_AFC,Houston,South_AFC
+Indianapolis Colts,South_AFC,Indianapolis,South_AFC
+Jacksonville Jaguars,South_AFC,Jacksonville,South_AFC
+Kansas City Chiefs,West_AFC,Kansas City,West_AFC
+Miami Dolphins,East_AFC,Miami,East_AFC
+Minnesota Vikings,North_NFC,Minneapolis,North_NFC
+New England Patriots,East_AFC,Boston,East_AFC
+New Orleans Saints,South_NFC,New Orleans,South_NFC
+NY Giants,East_NFC,New York,East_NFC
+NY Jets,East_AFC,New York,East_AFC
+Las Vegas Raiders,West_AFC,Las Vegas,West_AFC
+Philadelphia Eagles,East_NFC,Philadelphia,East_NFC
+Pittsburgh Steelers,North_AFC,Pittsburgh,North_AFC
+Los Angeles Chargers,West_AFC,Los Angeles,West_AFC
+San Francisco 49ers,West_NFC,San Francisco,West_NFC
+Seattle Seahawks,West_NFC,Seattle,West_NFC
+Los Angeles Rams,West_NFC,Los Angeles,West_NFC
+Tampa Bay Buccaneers,South_NFC,Tampa,South_NFC
+Tennessee Titans,South_AFC,Nashville-Davidson,South_AFC
+Washington Redskin,East_NFC,Washington,East_NFC
+South_NFC,NFC,South_NFC,
+North_NFC,NFC,North_NFC,
+East_NFC,NFC,East_NFC,
+West_NFC,NFC,West_NFC,
+East_AFC,AFC,East_AFC,
+West_AFC,AFC,West_AFC,
+North_AFC,AFC,North_AFC,
+South_AFC,AFC,South_AFC,
+NFC,NFL,NFC,
+AFC,NFL,AFC,
+NFL,,NFL,

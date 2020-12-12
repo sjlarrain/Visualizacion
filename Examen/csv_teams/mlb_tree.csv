@@ -1,0 +1,40 @@
+NAME,PARENT,CITY,CONFERENCE
+Central_AFC,American,Central_AFC,None
+East_AFC,American,East_AFC,None
+West_AFC,American,West_AFC,None
+Chicago White Sox,Central_AFC,Chicago,American
+Cleveland Indians,Central_AFC,Cleveland,American
+Detroit Tigers,Central_AFC,Detroit,American
+Kansas City Royals,Central_AFC,Kansas City,American
+Minnesota Twins,Central_AFC,Minneapolis,American
+Chicago Cubs,Central_NFC,Chicago,National
+Cincinnati Reds,Central_NFC,Cincinnati,National
+Milwaukee Brewers,Central_NFC,Milwaukee,National
+Pittsburgh Pirates,Central_NFC,Pittsburgh,National
+St Louis Cardinals,Central_NFC,St. Louis,National
+Baltimore Orioles,East_AFC,Baltimore,American
+Boston Red Sox,East_AFC,Boston,American
+New York Yankees,East_AFC,New York,American
+Tampa Bay Rays,East_AFC,Tampa,American
+Toronto Blue Jays,East_AFC,Toronto,American
+Atlanta Braves,East_NFC,Atlanta,National
+Miami Marlins,East_NFC,Miami,National
+New York Mets,East_NFC,New York,National
+Philadelphia Phillies,East_NFC,Philadelphia,National
+Washington Nationals,East_NFC,Washington,National
+National,MLB,National,None
+American,MLB,American,None
+Central_NFC,National,Central_NFC,None
+East_NFC,National,East_NFC,None
+West_NFC,National,West_NFC,None
+Texas Rangers,West_AFC,Dallas,American
+Houston Astros,West_AFC,Houston,American
+Los Angeles Angels of Anaheim,West_AFC,Los Angeles,American
+Oakland Athletics,West_AFC,Oakland,American
+Seattle Mariners,West_AFC,Seattle,American
+Colorado Rockies,West_NFC,Denver,National
+Los Angeles Dodgers,West_NFC,Los Angeles,National
+Arizona Diamondbacks,West_NFC,Phoenix,National
+San Diego Padres,West_NFC,San Diego,National
+San Francisco Giants,West_NFC,San Francisco,National
+MLB,,MLB,
